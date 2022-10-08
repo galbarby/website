@@ -1,19 +1,19 @@
 [
   {
-    "path": "posts/welcome/",
-    "title": "Welcome to gal barby website",
-    "description": "Welcome to our new blog, gal barby website. We hope you enjoy \nreading what we have to say!",
+    "path": "posts/2022-10-08-powerlifting-analysis-using-r/",
+    "title": "powerlifting analysis using R",
+    "description": "bla bla bla.",
     "author": [
       {
-        "name": "Nora Jones",
+        "name": "Gal Barby",
         "url": "https://example.com/norajones"
       }
     ],
-    "date": "2022-10-05",
+    "date": "2022-10-08",
     "categories": [],
-    "contents": "\r\n\r\n\r\n\r\n",
+    "contents": "\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2022-10-05T11:46:00+03:00",
+    "last_modified": "2022-10-08T21:40:42+03:00",
     "input_file": {}
   }
 ]

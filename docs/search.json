@@ -1,18 +1,18 @@
 {
   "articles": [
     {
-      "path": "blog.html",
-      "title": "blog",
-      "author": [],
-      "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-10-08T21:29:21+03:00"
-    },
-    {
       "path": "index.html",
       "title": "Gal Barby",
       "author": [],
-      "contents": "\r\n\r\n          \r\n          \r\n          gal barby website\r\n          \r\n          \r\n          Home\r\n          blog\r\n          ☰\r\n          \r\n          \r\n      \r\n        \r\n          \r\n            Gal Barby\r\n          \r\n          \r\n            \r\n              I am a\r\n            \r\n            \r\n              I am a\r\n            \r\n          \r\n\r\n          \r\n            \r\n              \r\n                  \r\n                    \r\n                      LinkedIn\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Twitter\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      GitHub\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Email\r\n                    \r\n                  \r\n                \r\n                              \r\n          \r\n\r\n          \r\n            \r\n              \r\n                                \r\n                  \r\n                    LinkedIn\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Twitter\r\n                  \r\n                \r\n                                \r\n                  \r\n                    GitHub\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Email\r\n                  \r\n                \r\n                              \r\n            \r\n          \r\n        \r\n      \r\n    \r\n\r\n    \r\n    \r\n    ",
-      "last_modified": "2022-10-08T21:28:11+03:00"
+      "contents": "\r\n\r\n          \r\n          \r\n          gal barby website\r\n          \r\n          \r\n          Home\r\n          projects\r\n          ☰\r\n          \r\n          \r\n      \r\n        \r\n          \r\n            Gal Barby\r\n          \r\n          \r\n            \r\n              I am a\r\n            \r\n            \r\n              I am a\r\n            \r\n          \r\n\r\n          \r\n            \r\n              \r\n                  \r\n                    \r\n                      LinkedIn\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Twitter\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      GitHub\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Email\r\n                    \r\n                  \r\n                \r\n                              \r\n          \r\n\r\n          \r\n            \r\n              \r\n                                \r\n                  \r\n                    LinkedIn\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Twitter\r\n                  \r\n                \r\n                                \r\n                  \r\n                    GitHub\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Email\r\n                  \r\n                \r\n                              \r\n            \r\n          \r\n        \r\n      \r\n    \r\n\r\n    \r\n    \r\n    ",
+      "last_modified": "2022-10-08T21:41:50+03:00"
+    },
+    {
+      "path": "projects.html",
+      "title": "projects",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-10-08T21:41:53+03:00"
     }
   ],
   "collections": ["posts/posts.json"]
