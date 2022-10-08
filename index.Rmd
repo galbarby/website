@@ -1,6 +1,6 @@
 ---
 title: "Gal Barby"
-image: "IMG_55555.jpg"
+image: "IMG_4678.jpg"
 links:
   - label: LinkedIn
     url: "https://linkedin.com/"
