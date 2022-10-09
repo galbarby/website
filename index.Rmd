@@ -15,7 +15,7 @@ output:
 site: distill::distill_website
 ---
 
-I am a statistics-economic student at the University of Haifa.
+I am a statistics-economics student at the University of Haifa.
 Interested in data and teaching.
 I am an assistant lecturer in Econometrics and Microeconomics courses.\
 my hobbies are sports, chess and playing guitar.
