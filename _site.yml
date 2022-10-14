@@ -3,6 +3,7 @@ title: "gal barby website"
 description: |
   gal barby website
 output_dir: "docs"
+theme: theme.css
 navbar:
   right:
     - text: "Home"
