@@ -118,7 +118,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["powerlifting-analysis-using-r_files/anchor-4.2.2/anchor.min.js","powerlifting-analysis-using-r_files/bowser-1.9.3/bowser.min.js","powerlifting-analysis-using-r_files/distill-2.2.21/template.v2.js","powerlifting-analysis-using-r_files/header-attrs-2.14/header-attrs.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.map","powerlifting-analysis-using-r_files/popper-2.6.0/popper.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-bundle.umd.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-light-border.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.umd.min.js","powerlifting-analysis-using-r_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["powerlifting-analysis-using-r_files/anchor-4.2.2/anchor.min.js","powerlifting-analysis-using-r_files/bowser-1.9.3/bowser.min.js","powerlifting-analysis-using-r_files/distill-2.2.21/template.v2.js","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-3-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-4-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-6-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-7-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-9-1.gif","powerlifting-analysis-using-r_files/header-attrs-2.14/header-attrs.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.map","powerlifting-analysis-using-r_files/popper-2.6.0/popper.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-bundle.umd.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-light-border.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.umd.min.js","powerlifting-analysis-using-r_files/webcomponents-2.0.0/webcomponents.js","the final ipf cleaned data2.xlsx"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1519,8 +1519,935 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>Distill is a publication format for scientific and technical writing, native to the web.</p>
-<p>Learn more about using Distill at <a href="https://rstudio.github.io/distill" class="uri">https://rstudio.github.io/distill</a>.</p>
+<p>In this project, I’m about to analyze powerlifting competitions from the famous federation called the IPF.<br />
+The first group is a series of statistical analyses that show some interesting things that may help several competitors.<br />
+The second group is analyses that show rare things in IPF and powerlifting in general.<br />
+Powerlifting is a strength sport in which the goal of each competitor in the basic competition is to lift the heaviest amount of weight among three lifts.<br />
+In every lift, the competitor receives three attempts, where his/her next attempt must be equal or heavier to that of the last one, “good lift” is considered a success, and “no lift” is considered a failure.<br />
+Every lift has three referees that raise a white flag or red flag.
+For “good lift” the competitor must receive at least two white flags.<br />
+In each lift there can be some reasons for red flags, the obvious one is if the competitor did not complete the lift.<br />
+The lifter’s best valid attempt (heaviest “good lift”) on each lift counts toward the competition “total”.<br />
+After three attempts, the competitors continue to the next lift in the following order: squat, bench press, and deadlift. The winner in each category (The category is sectioned by gender, age, and weight) is the one with the heaviest “total”.<br />
+</p>
+<p>In this project, I used the following libraries</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rapporter.github.io/pander/'>pander</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/thomasp85/transformr'>transformr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gif.ski/'>gifski</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gganimate.com'>gganimate</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>gdata</span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/writexl/'>writexl</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://www.stats.ox.ac.uk/pub/MASS4/'>MASS</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<p>I took the database from <a href="https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html" class="uri">https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html</a><br />
+The IPF has some competitions per period so apparently, there are some small changes in parts of the analysis.<br />
+Every row in the database refers to one competitor, in the original database, there are more than a million rows.<br />
+In addition, the original data includes non-basic competitions, so at first, I did a data cleaning in separate code and saved the relevant data frame as a different file.<br />
+The next code chunk is customized with eval=FALSE.<br />
+This means that this code chunk doesn’t run because it has been used before.<br />
+The clean data frame that I created includes only the following competitors:<br />
+competed in Raw and SBD events.<br />
+their gender and weight class were identified.<br />
+all the attempts were identified with at least one “good lift” in every exercise.<br />
+I cleaned the data more than required just in case (even with the clean data, there is enough information).<br />
+The last thing I did was to save only important information about every competitor (row).<br />
+The meet name for example is irrelevant to the following analysis.<br />
+Next, I split the clean data frame into two different data frames.<br />
+The first one is the clean data that I created with the next code.<br />
+The second data frame is data that includes one competition per competitor.<br />
+This is because some competitors compete more than once and that may bias the results.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"open ipf.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>ipf_data</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Equipment</span><span class='op'>==</span><span class='st'>"Raw"</span>,<span class='va'>Event</span><span class='op'>==</span><span class='st'>"SBD"</span>,<span class='va'>Sex</span><span class='op'>!=</span><span class='st'>"Mx"</span>,<span class='va'>WeightClassKg</span><span class='op'>!=</span><span class='st'>"+"</span>,</span>
+<span>         <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>Squat1Kg</span> <span class='op'>&amp;</span> <span class='va'>Bench1Kg</span> <span class='op'>&amp;</span> <span class='va'>Deadlift1Kg</span> <span class='op'>&amp;</span></span>
+<span>                  <span class='va'>Squat2Kg</span> <span class='op'>&amp;</span> <span class='va'>Bench2Kg</span> <span class='op'>&amp;</span> <span class='va'>Deadlift2Kg</span> <span class='op'>&amp;</span></span>
+<span>                  <span class='va'>Squat3Kg</span> <span class='op'>&amp;</span> <span class='va'>Bench3Kg</span> <span class='op'>&amp;</span> <span class='va'>Deadlift3Kg</span><span class='op'>)</span>,</span>
+<span>         <span class='va'>Best3SquatKg</span><span class='op'>&gt;</span><span class='fl'>0</span>,<span class='va'>Best3BenchKg</span><span class='op'>&gt;</span><span class='fl'>0</span>,<span class='va'>Best3DeadliftKg</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>MeetName</span>,<span class='op'>-</span><span class='va'>MeetTown</span>,<span class='op'>-</span><span class='va'>MeetState</span>,<span class='op'>-</span><span class='va'>MeetCountry</span>,<span class='op'>-</span><span class='va'>Federation</span>,<span class='op'>-</span><span class='va'>Equipment</span>,</span>
+<span>         <span class='op'>-</span><span class='va'>Glossbrenner</span>,<span class='op'>-</span><span class='va'>Dots</span><span class='op'>)</span></span>
+<span><span class='va'>ipf_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>writexl</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/writexl/reference/write_xlsx.html'>write_xlsx</a></span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"the final ipf cleaned data2.xlsx"</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<h3 id="bench-press---squat-ratio-difference-between-male-and-female">Bench Press - Squat Ratio Difference Between Male and Female:</h3>
+<p>The first analysis checks a familiar phenomenon, when males in general have stronger bodies than females.<br />
+The difference is not very significant in terms of the lower body, in comparison to the upper body, where there is a major dissimilarity.<br />
+The squat is an exercise that ably demonstrates lower body strength and the bench press is an exercise that effectively demonstrates the upper body strength.<br />
+So, in the following analysis I checked the ratio between the bench press of the males verses females and I compared it to the ratio of the males’ and females’ squat.<br />
+I executed the next mathematical transition to make my hypothesis and conclusions more understandable:<br />
+</p>
+<p><span class="math display">\[
+\hspace{2mm}H_O: \dfrac{maleBP}{femaleBP}&lt;=\dfrac{maleSQ}{femaleSQ}\\
+\hspace{1mm}H1: \dfrac{maleBP}{femaleBP}\hspace{0.5mm}&gt;\hspace{1mm}\dfrac{maleSQ}{femaleSQ}\\
+\hspace{1mm}H_O: \dfrac{maleBP}{maleSQ}\hspace{1mm}&lt;=\hspace{1mm}\dfrac{femaleBP}{femaleSQ}\\
+H1:\hspace{1mm}\dfrac{maleBP}{maleSQ}\hspace{2mm}&gt;\hspace{2mm}\dfrac{femaleBP}{femaleSQ}\\
+\]</span></p>
+<p>(I multiplied by <span class="math inline">\(\dfrac{femaleBP}{maleSQ}\)</span> (positive digit)).<br />
+The squat and the bench press that I used are the best attempts of the competitor.<br />
+Due to the data cleaning, all the competitors on the new data have at least one good attempt.<br />
+In addition, the data frame that I used for this analysis is called, “dat”, which includes one competition per competitor.<br />
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>repeated_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span><span class='op'>(</span><span class='st'>"the final ipf cleaned data2.xlsx"</span>,guess_max <span class='op'>=</span> <span class='fl'>20000</span><span class='op'>)</span></span>
+<span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>Name</span>, .keep_all <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>squat_bench_ratio<span class='op'>=</span><span class='va'>Best3BenchKg</span><span class='op'>/</span><span class='va'>Best3SquatKg</span><span class='op'>)</span></span>
+<span><span class='va'>M_sq_bp_ratio</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Sex</span><span class='op'>==</span><span class='st'>"M"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>squat_bench_ratio</span><span class='op'>)</span></span>
+<span><span class='va'>F_sq_bp_ratio</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Sex</span><span class='op'>==</span><span class='st'>"F"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>squat_bench_ratio</span><span class='op'>)</span></span>
+<span><span class='va'>sq_bp_test</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span><span class='va'>M_sq_bp_ratio</span>,<span class='va'>F_sq_bp_ratio</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>sq_bp_test</span>,split.cells <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:81%;">
+<caption>Welch Two Sample t-test: <code>M_sq_bp_ratio</code> and <code>F_sq_bp_ratio</code></caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 19%" />
+<col style="width: 9%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test
+statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P
+value</th>
+<th style="text-align: center;">Alternative
+hypothesis</th>
+<th style="text-align: center;">mean
+of
+x</th>
+<th style="text-align: center;">mean
+of
+y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">143.9</td>
+<td style="text-align: center;">71497</td>
+<td style="text-align: center;">0
+<em>
+</em>
+*</td>
+<td style="text-align: center;">two.sided</td>
+<td style="text-align: center;">0.68</td>
+<td style="text-align: center;">0.5717</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>squat_bench_ratio</span>, colour<span class='op'>=</span><span class='va'>Sex</span>, fill<span class='op'>=</span><span class='va'>Sex</span><span class='op'>)</span>, alpha<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"squat - bench press ratio"</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p>The essence of the result is as follows:<br />
+The average weight of the males’ bench press is about 68% of the weight of their squat.<br />
+The average weight of the Females’ bench press is about 57% of the weight of their squat.
+The result is statistically highly significant and this justifies the alternative hypothesis.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+</p>
+<h3 id="bench-press---deadlift-ratio">Bench Press - Deadlift Ratio</h3>
+<p>As we saw, the ratio between two different lifts in one group can be unequal to the ratio of the same lifts in another type of group.<br />
+Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench Press in my category) proposed the following hypothesis:<br />
+There is a difference between the ratio of two lifts in different body-weight classes.<br />
+The deadlift is a pull exercise, and the bench press is <em>a</em> push exercise.<br />
+Therefore, there is an importance in the ratio between them for reasons of balance and body health.<br />
+Consequently, I decided to check the ratio between the deadlift and bench press using the following hypothesis of Elchonon:<br />
+</p>
+<p><span class="math display">\[
+H_O: \dfrac{HWBP}{HWDL}&lt;=\dfrac{LWBP}{LWDL}\\
+H1: \dfrac{HWBP}{HWDL}\hspace{2.2mm}&gt;\hspace{2.2mm}\dfrac{LWBP}{LWDL}\\
+\]</span></p>
+<p>Elchonon believes that the ratio between bench press and deadlift is higher with heavy weight competitors in comparison to light weight competitors.<br />
+So, in the following analysis I studied the hypothesis with multiple comparisons between varying weight classes.<br />
+Because we know that the ratio between different lifts can be influenced by gender, and females in general are lighter than males, I performed the analysis only on males.<br />
+In addition, I analyzed which class has the most competitors and then I picked the five that had the most significant difference between their weight.<br />
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>deadlift_bench_ratio<span class='op'>=</span><span class='va'>Best3BenchKg</span><span class='op'>/</span><span class='va'>Best3DeadliftKg</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Sex</span><span class='op'>==</span><span class='st'>"M"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:33%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">WeightClassKg</th>
+<th style="text-align: center;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">93</td>
+<td style="text-align: center;">14856</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">83</td>
+<td style="text-align: center;">14720</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">105</td>
+<td style="text-align: center;">10485</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">74</td>
+<td style="text-align: center;">10038</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">120</td>
+<td style="text-align: center;">5424</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">4614</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">120+</td>
+<td style="text-align: center;">3023</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">1960</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">466</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">340</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>categories</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"53"</span>,<span class='st'>"59"</span>,<span class='st'>"66"</span>,<span class='st'>"93"</span>,<span class='st'>"120+"</span><span class='op'>)</span></span>
+<span><span class='va'>multiple_comparisons_df</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>WeightClassKg</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>categories</span>,<span class='va'>Sex</span><span class='op'>==</span><span class='st'>"M"</span><span class='op'>)</span></span>
+<span><span class='va'>multiple_comparisons_df</span><span class='op'>$</span><span class='va'>WeightClassKg</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/gdata/man/reorder.html'>reorder.factor</a></span><span class='op'>(</span><span class='va'>multiple_comparisons_df</span><span class='op'>$</span><span class='va'>WeightClassKg</span>, new.order<span class='op'>=</span><span class='va'>categories</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>multiple_comparisons_df</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_density.html'>geom_density</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>deadlift_bench_ratio</span>, colour<span class='op'>=</span><span class='va'>WeightClassKg</span>, fill<span class='op'>=</span><span class='va'>WeightClassKg</span><span class='op'>)</span>,</span>
+<span>               alpha<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>xlim</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1.5</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"deadlift - bench press ratio"</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-4-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>multiple_comparisons_df</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>        <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>ratio<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>deadlift_bench_ratio</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:35%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">WeightClassKg</th>
+<th style="text-align: center;">ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">53</td>
+<td style="text-align: center;">0.5078</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">59</td>
+<td style="text-align: center;">0.5349</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">0.548</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">93</td>
+<td style="text-align: center;">0.5764</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">120+</td>
+<td style="text-align: center;">0.6245</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>dl_bp_ratio</span> <span class='op'>&lt;-</span> <span class='va'>multiple_comparisons_df</span><span class='op'>$</span><span class='va'>deadlift_bench_ratio</span></span>
+<span><span class='va'>wc_kg</span> <span class='op'>&lt;-</span> <span class='va'>multiple_comparisons_df</span><span class='op'>$</span><span class='va'>WeightClassKg</span></span>
+<span><span class='va'>dl_bp_test</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/pairwise.t.test.html'>pairwise.t.test</a></span><span class='op'>(</span><span class='va'>dl_bp_ratio</span>,<span class='va'>wc_kg</span>,p.adjust.method<span class='op'>=</span><span class='st'>"bonferroni"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dl_bp_test</span>,split.cells <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<ul>
+<li><p><strong>method</strong>: t tests with pooled SD</p></li>
+<li><p><strong>data.name</strong>: dl_bp_ratio and wc_kg</p></li>
+<li><p><strong>p.value</strong>:</p>
+<table style="width:88%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"> </th>
+<th style="text-align: center;">53</th>
+<th style="text-align: center;">59</th>
+<th style="text-align: center;">66</th>
+<th style="text-align: center;">93</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>59</strong></td>
+<td style="text-align: center;">1.518e-07</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>66</strong></td>
+<td style="text-align: center;">5.003e-18</td>
+<td style="text-align: center;">1.466e-06</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>93</strong></td>
+<td style="text-align: center;">1.895e-54</td>
+<td style="text-align: center;">4.924e-76</td>
+<td style="text-align: center;">2.681e-72</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>120+</strong></td>
+<td style="text-align: center;">2.453e-138</td>
+<td style="text-align: center;">2.004e-237</td>
+<td style="text-align: center;">9.274e-265</td>
+<td style="text-align: center;">4.641e-146</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>p.adjust.method</strong>: bonferroni</p></li>
+</ul>
+<!-- end of list -->
+</div>
+<p>As you can see, the bench press weight of the lightest weight class is 50.7% of the weight of their deadlift.<br />
+You can see that when the weight class increases, the percentage goes up too.<br />
+In addition, every pairwise comparison is statistically highly significant.<br />
+</p>
+<p>This analysis is not enough to give suggestions, because each group has individual characteristics that can affect this result.<br />
+</p>
+<p><span class="math display">\[
+BD_{ratio}=weight_{class}+\epsilon
+\]</span>
+Every weight class has its random errors (<span class="math inline">\(\epsilon\)</span>) that may correlate with the ratio of bench press - deadlift and weight class too.<br />
+Height for example is one of them.<br />
+These correlations can affect the consistency of our estimator.<br />
+The solution that I came up with is to use the “repeated data” (the data frame which includes competitors who compete more than once).<br />
+With this data frame, I can include competitors that compete in more than one body weight class and by that solve the consistency problem.<br />
+These competitors have several fixed characteristics that we can lose when we execute a paired ‘t test’.<br />
+In this method, we remove a part of the random errors that affected our estimation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>repeated_dat_2</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>WeightClassKg</span><span class='op'>)</span>,<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>BodyweightKg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>repeated_dat_2</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat_2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>deadlift_bench_ratio<span class='op'>=</span><span class='va'>Best3BenchKg</span><span class='op'>/</span><span class='va'>Best3DeadliftKg</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>splited_repeated</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat_2</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/distinct.html'>distinct</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>WeightClassKg</span>,.keep_all <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Name</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>&gt;</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>WeightClassKg</span>,<span class='va'>BodyweightKg</span>,<span class='va'>deadlift_bench_ratio</span>,n<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>n</span>,<span class='va'>Name</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_split.html'>group_split</a></span><span class='op'>(</span><span class='va'>n</span>,.keep <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>make_pairs</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span><span class='op'>{</span></span>
+<span>  <span class='va'>n</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='va'>pair_1</span> <span class='op'>&lt;-</span> <span class='va'>data</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>,by<span class='op'>=</span><span class='va'>n</span><span class='op'>)</span>,<span class='op'>]</span></span>
+<span>  <span class='va'>pair_2</span> <span class='op'>&lt;-</span> <span class='va'>data</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='va'>n</span>,<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>,by<span class='op'>=</span><span class='va'>n</span><span class='op'>)</span>,<span class='op'>]</span></span>
+<span>  <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>pair_1</span>,<span class='va'>pair_2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>BodyweightKg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>}</span></span>
+<span></span>
+<span><span class='va'>pairs_list</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>splited_repeated</span>,<span class='va'>make_pairs</span><span class='op'>)</span></span>
+<span><span class='va'>pairs_dat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>pairs_list</span><span class='op'>)</span></span>
+<span><span class='va'>weights_vec</span> <span class='op'>&lt;-</span> <span class='va'>pairs_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>deadlift_bench_ratio</span><span class='op'>)</span></span>
+<span><span class='va'>heavier_weight</span> <span class='op'>&lt;-</span> <span class='va'>weights_vec</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>weights_vec</span><span class='op'>)</span>,by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span></span>
+<span><span class='va'>lower_weight</span> <span class='op'>&lt;-</span> <span class='va'>weights_vec</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>weights_vec</span><span class='op'>)</span>,by<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span></span>
+<span><span class='va'>pair_test</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/t.test.html'>t.test</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>heavier_weight</span>,y<span class='op'>=</span><span class='va'>lower_weight</span>,paired <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>pair_test</span>,split.cells <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:83%;">
+<caption>Paired t-test: <code>heavier_weight</code> and <code>lower_weight</code></caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test
+statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P
+value</th>
+<th style="text-align: center;">Alternative
+hypothesis</th>
+<th style="text-align: center;">mean
+difference</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">27.07</td>
+<td style="text-align: center;">20059</td>
+<td style="text-align: center;">1.63e-158
+<em>
+</em>
+*</td>
+<td style="text-align: center;">two.sided</td>
+<td style="text-align: center;">0.01179</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Now, it is easier for me to suggest some things.<br />
+For example, for an individual who has shoulder pain which is caused by stronger push muscles than pull muscles, I will suggest to consider this analysis.<br />
+In addition, I would recommend to reduce some load on this competitor’s push exercise and to lose body weight.<br />
+Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.<br />
+</p>
+<h3 id="good-lift-and-no-lift-analysis">Good Lift and No Lift Analysis:</h3>
+<p>The last statistic analysis consists of two analyses.<br />
+The first one detects if there is the same quantity of “good lift” in each exercise.<br />
+The second analysis checks if there is a correlation between one lift fail/success and another lift fail/success.<br />
+In these two analyses I used the third attempt of every lift.<br />
+In the second analysis, I analyzed the correlation between the squat and the bench press because there are the most diverse exercises (therefore, the correlation between them is less obvious than the other combination).<br />
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#prop test squat3 bench3 and deadlift3 no lift</span></span>
+<span><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>G_squat3 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>Squat3Kg</span><span class='op'>&gt;</span><span class='fl'>0</span> <span class='op'>~</span> <span class='fl'>1</span>,</span>
+<span>                                          <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span>                        G_bench3 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>Bench3Kg</span><span class='op'>&gt;</span><span class='fl'>0</span> <span class='op'>~</span> <span class='fl'>1</span>,</span>
+<span>                                          <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span>                        G_deadlift3 <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span><span class='va'>Deadlift3Kg</span><span class='op'>&gt;</span><span class='fl'>0</span> <span class='op'>~</span> <span class='fl'>1</span>,</span>
+<span>                                          <span class='cn'>TRUE</span> <span class='op'>~</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>G_sq</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>G_bp</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>G_dl</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_deadlift3</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='va'>pop</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>G_sq</span><span class='op'>/</span><span class='va'>pop</span>,<span class='va'>G_bp</span><span class='op'>/</span><span class='va'>pop</span>,<span class='va'>G_dl</span><span class='op'>/</span><span class='va'>pop</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<em>0.6718</em>, <em>0.4593</em> and <em>0.654</em>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>my_test4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/pairwise.prop.test.html'>pairwise.prop.test</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>G_sq</span>,<span class='va'>G_bp</span>,<span class='va'>G_dl</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>pop</span>,<span class='fl'>3</span><span class='op'>)</span>, p.adjust.method <span class='op'>=</span> <span class='st'>"bonferroni"</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>my_test4</span>,split.cells <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<ul>
+<li><p><strong>method</strong>: Pairwise comparison of proportions</p></li>
+<li><p><strong>data.name</strong>: c(G_sq, G_bp, G_dl) out of rep(pop, 3)</p></li>
+<li><p><strong>p.value</strong>:</p>
+<table style="width:36%;">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 16%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"> </th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;">1.193e-16</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>p.adjust.method</strong>: bonferroni</p></li>
+</ul>
+<!-- end of list -->
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#chisq test no lift squat and bench</span></span>
+<span><span class='va'>my_test5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/chisq.test.html'>chisq.test</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>$</span><span class='va'>G_squat3</span>,<span class='va'>dat</span><span class='op'>$</span><span class='va'>G_bench3</span>,correct <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>my_test5</span>,split.cells <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:42%;">
+<caption>Pearson’s Chi-squared test: <code>dat$G_squat3</code> and <code>dat$G_bench3</code></caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 6%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test
+statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P
+value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">832.2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5.368e-183
+<em>
+</em>
+*</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>obs11</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>1</span>,<span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>/</span><span class='va'>pop</span></span>
+<span><span class='va'>obs10</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>1</span>,<span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>/</span><span class='va'>pop</span></span>
+<span><span class='va'>obs01</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>0</span>,<span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>/</span><span class='va'>pop</span></span>
+<span><span class='va'>obs00</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>0</span>,<span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>/</span><span class='va'>pop</span></span>
+<span></span>
+<span><span class='va'>exp11</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>G_bp</span><span class='op'>)</span><span class='op'>*</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>G_sq</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>pop</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span><span class='va'>exp10</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>G_bp</span><span class='op'>*</span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>nrow</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>pop</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span><span class='va'>exp01</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>nrow</span><span class='op'>)</span><span class='op'>*</span><span class='va'>G_sq</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>pop</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span><span class='va'>exp00</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='op'>(</span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_bench3</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>nrow</span><span class='op'>)</span><span class='op'>*</span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>G_squat3</span><span class='op'>==</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='va'>nrow</span><span class='op'>)</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='va'>pop</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span></span>
+<span><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span></span>
+<span>  group<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"11"</span>,<span class='st'>"10"</span>,<span class='st'>"01"</span>,<span class='st'>"00"</span>,<span class='st'>"11"</span>,<span class='st'>"10"</span>,<span class='st'>"01"</span>,<span class='st'>"00"</span><span class='op'>)</span>,</span>
+<span>  value<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>obs11</span>,<span class='va'>obs10</span>,<span class='va'>obs01</span>,<span class='va'>obs00</span>,<span class='va'>exp11</span>,<span class='va'>exp10</span>,<span class='va'>exp01</span>,<span class='va'>exp00</span><span class='op'>)</span>,</span>
+<span>  type<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"observed"</span>,<span class='fl'>4</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"expected"</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>df</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='st'>""</span>, y<span class='op'>=</span><span class='va'>value</span>, fill<span class='op'>=</span><span class='va'>group</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat<span class='op'>=</span><span class='st'>"identity"</span>, width<span class='op'>=</span><span class='fl'>1</span>, color<span class='op'>=</span><span class='st'>"white"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>value</span>,<span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>            position <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/position_stack.html'>position_stack</a></span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_polar.html'>coord_polar</a></span><span class='op'>(</span><span class='st'>"y"</span>, start<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_void</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_wrap.html'>facet_wrap</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>type</span><span class='op'>)</span></span>
+<span><span class='va'>p</span></span></code></pre>
+</div>
+<p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-6-1.png" width="624" /></p>
+</div>
+<p>The first analysis found that on average, the percentage of the “good lift” on the third attempt is:<br />
+squat - 67%, bench press - 45%, deadlift - 65%.<br />
+With the Bonferroni method, I found that the difference between every lift is statistically highly significant.<br />
+(In part of the table, you can see a p-value that is equal to zero, that’s because it is too low).<br />
+The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of “good lift” is equal between squat and deadlift.<br />
+One interesting thing I found that Power Lifters can use from this analysis, is the low proportion of “good lift” in the bench press.<br />
+On average, there is more “no lift” than “good lift” in the third attempt, so power lifters should take into account this result and plan the bench press attempts accordingly.<br />
+<br />
+I will explain the second analysis via the pie chart:<br />
+On the right side you can see the group splitting, the left number refers to bench press and the right number refers to squat.<br />
+For example, 01 (the color green) means “no lift” for bench press, and “good lift” for squat.<br />
+The left pie chart shows the expected values of each option (the result that was expected if there is no correlation between the lifts).<br />
+The right pie chart shows the real values that I received (the observed values).<br />
+As you can see the ‘00’ and ‘11’ groups received a bigger part on the observed chart, while the ‘01’ and ‘10’ got a smaller part on the observed chart.<br />
+So, the squat and the bench press get the same value 52.68% of the time (“good lift”+“no lift”).<br />
+While on the expected option (the option that there is no correlation between them) they get the same value only 48.6% of the time.<br />
+In addition to the intuitive explanation, you can see the ‘chisq test’ before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.<br />
+On the ‘chisq test’, I got a statistically significant result.<br />
+</p>
+<h3 id="wilks-and-records-analysis">Wilks and Records Analysis</h3>
+<p>In the following analysis, you will notice some interesting facts about powerlifting competitions.<br />
+The first one is the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).<br />
+The second is the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.<br />
+The third is the oldest competitor that ever competed on the IPF.<br />
+You can see the impressive weight he lifted as well.<br />
+The fourth is the heaviest total that a competitor 80 years old or more lifted in a competition.<br />
+This might give you quite a lot of motivation.<br />
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>## records analysis</span></span>
+<span><span class='va'>records_dat</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>AgeClass</span><span class='op'>)</span>,<span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>WeightClassKg</span><span class='op'>)</span>,</span>
+<span>                                       <span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='co'>#oldest record</span></span>
+<span><span class='va'>oldest_record</span> <span class='op'>&lt;-</span> <span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>add_count</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Name</span>,<span class='va'>Date</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>oldest_record</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Sex</th>
+<th style="text-align: center;">AgeClass</th>
+<th style="text-align: center;">WeightClassKg</th>
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Date</th>
+<th style="text-align: center;">TotalKg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">M</td>
+<td style="text-align: center;">24-34</td>
+<td style="text-align: center;">110+</td>
+<td style="text-align: center;">Don Reinhoudt</td>
+<td style="text-align: center;">1973-11-09</td>
+<td style="text-align: center;">1034</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#oldest record with more than 1000 competitors</span></span>
+<span><span class='va'>oldest_record1000</span> <span class='op'>&lt;-</span> <span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>add_count</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>&gt;</span><span class='fl'>1000</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Name</span>,<span class='va'>Date</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>oldest_record1000</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 15%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Sex</th>
+<th style="text-align: center;">AgeClass</th>
+<th style="text-align: center;">WeightClassKg</th>
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Date</th>
+<th style="text-align: center;">TotalKg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">M</td>
+<td style="text-align: center;">16-17</td>
+<td style="text-align: center;">66</td>
+<td style="text-align: center;">Yosuke Kiuchi</td>
+<td style="text-align: center;">2014-03-23</td>
+<td style="text-align: center;">620</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#age distribution</span></span>
+<span><span class='va'>Age_count</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>AgeClass</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>Age_count</span> <span class='op'>&lt;-</span> <span class='va'>Age_count</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>AgeClass</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>Age_count</span>,<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span><span class='op'>(</span><span class='va'>AgeClass</span>,<span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span>,y<span class='op'>=</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat<span class='op'>=</span><span class='st'>'identity'</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_flip.html'>coord_flip</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"Age class"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"count"</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-7-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># the oldest competitor</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>Age</span>,<span class='va'>BodyweightKg</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Best3SquatKg</span>,</span>
+<span>         <span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 9%" />
+<col style="width: 20%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Age</th>
+<th style="text-align: center;">BodyweightKg</th>
+<th style="text-align: center;">WeightClassKg</th>
+<th style="text-align: center;">Best3SquatKg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Svend Stensgaard</td>
+<td style="text-align: center;">92.5</td>
+<td style="text-align: center;">78.2</td>
+<td style="text-align: center;">83</td>
+<td style="text-align: center;">65</td>
+</tr>
+</tbody>
+</table>
+<table style="width:60%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 25%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Best3BenchKg</th>
+<th style="text-align: center;">Best3DeadliftKg</th>
+<th style="text-align: center;">TotalKg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">60</td>
+<td style="text-align: center;">125</td>
+<td style="text-align: center;">250</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># the heaviest total in 80 or more age group</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>&gt;=</span><span class='fl'>80</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>Age</span>,<span class='va'>BodyweightKg</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Best3SquatKg</span>,</span>
+<span>         <span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<caption>Table continues below</caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 8%" />
+<col style="width: 18%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Age</th>
+<th style="text-align: center;">BodyweightKg</th>
+<th style="text-align: center;">WeightClassKg</th>
+<th style="text-align: center;">Best3SquatKg</th>
+<th style="text-align: center;">Best3BenchKg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Emil Alin</td>
+<td style="text-align: center;">81.5</td>
+<td style="text-align: center;">112.7</td>
+<td style="text-align: center;">120</td>
+<td style="text-align: center;">155</td>
+<td style="text-align: center;">110</td>
+</tr>
+</tbody>
+</table>
+<table style="width:39%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Best3DeadliftKg</th>
+<th style="text-align: center;">TotalKg</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">465</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="differences-between-countries">Differences Between Countries:</h3>
+<p>To understand this analysis, you must learn an additional term in power lifters’ vocabulary, ‘Wilks’.<br />
+The ‘Wilks’ is a formula that is used to compare lifters in different body weight classes in order to find the strongest lifter while taking into account the lifter’s body weight.<br />
+<br />
+First of all, I presented the countries who have the most amount of lifters.<br />
+The first analysis takes the lifters that get the highest Wilks score, and checks from which countries they originated from.<br />
+The second analysis compares the average of the ten highest Wilks scores in the USA vs. Russia.<br />
+The third analysis shows the countries with the most and the least percentages of female competitors (when taking only in consideration countries with more than 200 competitors).<br />
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:28%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Country</th>
+<th style="text-align: center;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">USA</td>
+<td style="text-align: center;">43384</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">England</td>
+<td style="text-align: center;">6991</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Canada</td>
+<td style="text-align: center;">4054</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Germany</td>
+<td style="text-align: center;">1052</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Australia</td>
+<td style="text-align: center;">967</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Russia</td>
+<td style="text-align: center;">947</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># strongest competitors</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Wilks</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<em>USA</em>, <em>Russia</em> and <em>Poland</em>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#USA vs Russia</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>==</span><span class='st'>"USA"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Wilks</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>Wilks</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<em>561.4</em>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>==</span><span class='st'>"Russia"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Wilks</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></span><span class='op'>(</span><span class='va'>Wilks</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<em>521.7</em>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#most and least percentages of female competitors</span></span>
+<span><span class='va'>dat_fem</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>add_count</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>&gt;</span><span class='fl'>200</span><span class='op'>)</span></span>
+<span><span class='va'>dat_fem</span> <span class='op'>&lt;-</span> <span class='va'>dat_fem</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Country</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>femlae_precentage<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>Sex</span><span class='op'>==</span><span class='st'>"F"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat_fem</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>femlae_precentage</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:42%;">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Country</th>
+<th style="text-align: center;">femlae_precentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Sweden</td>
+<td style="text-align: center;">0.4656</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>dat_fem</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_min</a></span><span class='op'>(</span><span class='va'>femlae_precentage</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:42%;">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Country</th>
+<th style="text-align: center;">femlae_precentage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Belgium</td>
+<td style="text-align: center;">0.1648</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>As you can see, the strongest competitors in the IPF are from the USA, Russia and Poland.<br />
+If the strength of the lifter is independent from his/her country, Poland is a surprising result because there are many countries with more competitors than Poland.<br />
+Another surprising result, is the percentage of females that compete in Sweden in comparison to Belgium.<br />
+This result is even more surprising when we look at the female percentage in Sweden and Belgium over the years:<br />
+<a href="https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE" class="uri">https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE</a><br />
+Belgium’s female percentage was higher than Sweden’s female percentage from 1960 to 2021.<br />
+However, Sweden has a higher score on ‘Gender Equality Index’ in every year that exists in the following link:<br />
+<a href="https://eige.europa.eu/gender-equality-index/2021/compare-countries/index/bar" class="uri">https://eige.europa.eu/gender-equality-index/2021/compare-countries/index/bar</a><br />
+Those who are interested in this difference can request from me more analyses on the females’ percentage in IPF.<br />
+These two factors I mentioned do not suffice. Another analysis can detect countries with a lower female percentage and a lower score on the ‘Gender Equality Index’ in comparison to Belgium. Nevertheless, Belgium is the country with the lowest female percentage in IPF.<br />
+Therefore, additional factors influence the observed result.<br />
+<br />
+</p>
+<h3 id="competed-the-most-amount-of-times">Competed the Most Amount of Times</h3>
+<p>In this final analysis, I found the competitor that competed the most amount of times in the IPF (remember, this data includes only SBD and RAW events).<br />
+</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>repeated_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='va'>Name</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table style="width:32%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Charlie Chester</td>
+<td style="text-align: center;">46</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>Charlie_progress</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Name</span><span class='op'>==</span><span class='st'>"Charlie Chester"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Date</span>,<span class='va'>Best3SquatKg</span>,<span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span></span>
+<span><span class='va'>Charlie_progress</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>Charlie_progress</span>, Date<span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>Charlie_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>Charlie_progress</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>Date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Best3SquatKg</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Best3BenchKg</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"black"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Best3DeadliftKg</span><span class='op'>)</span>, color<span class='op'>=</span><span class='st'>"red"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://gganimate.com/reference/transition_reveal.html'>transition_reveal</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>'Competition : {frame_time}'</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://gganimate.com/reference/animate.html'>animate</a></span><span class='op'>(</span></span>
+<span>  plot <span class='op'>=</span> <span class='va'>Charlie_plot</span>,</span>
+<span>  render <span class='op'>=</span> <span class='fu'><a href='https://gganimate.com/reference/renderers.html'>gifski_renderer</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-9-1.gif" /><!-- --></p>
+</div>
+<p>In the graph, you can see Charlie’s bench press (in black), squat (in blue) and deadlift (in red).<br />
+What you may find interesting is how the trends in the lifts are very similar.<br />
+The similar trends can match to the ‘chisq test’ in this project, which ultimately found a correlation between squat and bench press success and failure.<br />
+</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
@@ -1529,6 +2456,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
