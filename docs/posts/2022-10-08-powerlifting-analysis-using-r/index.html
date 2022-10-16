@@ -2439,20 +2439,21 @@ d-appendix d-footnote-list a.footnote-backlink {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>powerlifting analysis using R</h1>
+<h1>powerlifting analysis</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>bla bla bla.</p></p>
 </div>
 
 <div class="d-byline">
-  Gal Barby <a href="https://example.com/norajones" class="uri">https://example.com/norajones</a> 
   
-<br/>2022-10-08
+  gal barby
+  
+<br/>2022-10-04
 </div>
 
 <div class="d-article">
-<p>In this project, I’m about to analyze powerlifting competitions from the famous federation called the IPF.<br />
+<p>In this project, I will analyze powerlifting competitions from the famous federation called the IPF.<br />
 The first group is a series of statistical analyses that show some interesting things that may help several competitors.<br />
 The second group is analyses that show rare things in IPF and powerlifting in general.<br />
 Powerlifting is a strength sport in which the goal of each competitor in the basic competition is to lift the heaviest amount of weight among three lifts.<br />
@@ -2511,10 +2512,10 @@ This is because some competitors compete more than once and that may bias the re
 </div>
 </div>
 <h3 id="bench-press---squat-ratio-difference-between-male-and-female">Bench Press - Squat Ratio Difference Between Male and Female:</h3>
-<p>The first analysis checks a familiar phenomenon, when males in general have stronger bodies than females.<br />
+<p>The first analysis checks a familiar phenomenon when males in general have stronger bodies than females.<br />
 The difference is not very significant in terms of the lower body, in comparison to the upper body, where there is a major dissimilarity.<br />
-The squat is an exercise that ably demonstrates lower body strength and the bench press is an exercise that effectively demonstrates the upper body strength.<br />
-So, in the following analysis I checked the ratio between the bench press of the males verses females and I compared it to the ratio of the males’ and females’ squat.<br />
+The squat is an exercise that ably demonstrates lower body strength and the bench press is an exercise that effectively demonstrates upper body strength.<br />
+So, in the following analysis, I checked the ratio between the bench press of the males versus females and I compared it to the ratio of the males’ and females’ squats.<br />
 I executed the next mathematical transition to make my hypothesis and conclusions more understandable:<br />
 </p>
 <p><span class="math display">\[
@@ -2597,11 +2598,11 @@ The result is statistically highly significant and this justifies the alternativ
 <br />
 <br />
 </p>
-<h3 id="bench-press---deadlift-ratio">Bench Press - Deadlift Ratio</h3>
+<h3 id="bench-press---deadlift-ratio">Bench Press - Deadlift Ratio:</h3>
 <p>As we saw, the ratio between two different lifts in one group can be unequal to the ratio of the same lifts in another type of group.<br />
-Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench Press in my category) proposed the following hypothesis:<br />
+Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench press in my category) proposed the following hypothesis:<br />
 There is a difference between the ratio of two lifts in different body-weight classes.<br />
-The deadlift is a pull exercise, and the bench press is <em>a</em> push exercise.<br />
+The deadlift is a pull exercise, and the bench press is a push exercise.<br />
 Therefore, there is an importance in the ratio between them for reasons of balance and body health.<br />
 Consequently, I decided to check the ratio between the deadlift and bench press using the following hypothesis of Elchonon:<br />
 </p>
@@ -2609,10 +2610,10 @@ Consequently, I decided to check the ratio between the deadlift and bench press 
 H_O: \dfrac{HWBP}{HWDL}&lt;=\dfrac{LWBP}{LWDL}\\
 H1: \dfrac{HWBP}{HWDL}\hspace{2.2mm}&gt;\hspace{2.2mm}\dfrac{LWBP}{LWDL}\\
 \]</span></p>
-<p>Elchonon believes that the ratio between bench press and deadlift is higher with heavy weight competitors in comparison to light weight competitors.<br />
-So, in the following analysis I studied the hypothesis with multiple comparisons between varying weight classes.<br />
-Because we know that the ratio between different lifts can be influenced by gender, and females in general are lighter than males, I performed the analysis only on males.<br />
-In addition, I analyzed which class has the most competitors and then I picked the five that had the most significant difference between their weight.<br />
+<p>Elchonon believes that the ratio between bench press and deadlift is higher with heavy-weight competitors in comparison to light-weight competitors.<br />
+So, in the following analysis, I studied the hypothesis with multiple comparisons between varying weight classes.<br />
+Because we know that the ratio between different lifts can be influenced by gender, I performed the analysis only on males.<br />
+In addition, I analyzed which class has the most competitors, and then I picked the five that had the most significant difference between their weight.<br />
 </p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2796,7 +2797,7 @@ Every weight class has its random errors (<span class="math inline">\(\epsilon\)
 Height for example is one of them.<br />
 These correlations can affect the consistency of our estimator.<br />
 The solution that I came up with is to use the “repeated data” (the data frame which includes competitors who compete more than once).<br />
-With this data frame, I can include competitors that compete in more than one body weight class and by that solve the consistency problem.<br />
+With this data frame, I can include competitors that compete in more than one body-weight class and by that solve the consistency problem.<br />
 These competitors have several fixed characteristics that we can lose when we execute a paired ‘t test’.<br />
 In this method, we remove a part of the random errors that affected our estimation.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2861,15 +2862,15 @@ difference</th>
 </table>
 </div>
 <p>Now, it is easier for me to suggest some things.<br />
-For example, for an individual who has shoulder pain which is caused by stronger push muscles than pull muscles, I will suggest to consider this analysis.<br />
-In addition, I would recommend to reduce some load on this competitor’s push exercise and to lose body weight.<br />
+For example, for an individual who has shoulder pain that is caused by stronger push muscles than pull muscles, I will suggest considering this analysis.<br />
+In addition, I would recommend reducing some load on this competitor’s push exercise and to lose body weight.<br />
 Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.<br />
 </p>
 <h3 id="good-lift-and-no-lift-analysis">Good Lift and No Lift Analysis:</h3>
 <p>The last statistic analysis consists of two analyses.<br />
 The first one detects if there is the same quantity of “good lift” in each exercise.<br />
 The second analysis checks if there is a correlation between one lift fail/success and another lift fail/success.<br />
-In these two analyses I used the third attempt of every lift.<br />
+In these two analyses, I used the third attempt of every lift.<br />
 In the second analysis, I analyzed the correlation between the squat and the bench press because there are the most diverse exercises (therefore, the correlation between them is less obvious than the other combination).<br />
 </p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2989,8 +2990,8 @@ squat - 67%, bench press - 45%, deadlift - 65%.<br />
 With the Bonferroni method, I found that the difference between every lift is statistically highly significant.<br />
 (In part of the table, you can see a p-value that is equal to zero, that’s because it is too low).<br />
 The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of “good lift” is equal between squat and deadlift.<br />
-One interesting thing I found that Power Lifters can use from this analysis, is the low proportion of “good lift” in the bench press.<br />
-On average, there is more “no lift” than “good lift” in the third attempt, so power lifters should take into account this result and plan the bench press attempts accordingly.<br />
+One interesting thing I found that powerlifters can use from this analysis, is the low proportion of “good lift” in the bench press.<br />
+On average, there is more “no lift” than “good lift” in the third attempt, so powerlifters should take into account this result and plan the bench press attempts accordingly.<br />
 <br />
 I will explain the second analysis via the pie chart:<br />
 On the right side you can see the group splitting, the left number refers to bench press and the right number refers to squat.<br />
@@ -3003,7 +3004,7 @@ While on the expected option (the option that there is no correlation between th
 In addition to the intuitive explanation, you can see the ‘chisq test’ before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.<br />
 On the ‘chisq test’, I got a statistically significant result.<br />
 </p>
-<h3 id="wilks-and-records-analysis">Wilks and Records Analysis</h3>
+<h3 id="wilks-and-records-analysis">Wilks and Records Analysis:</h3>
 <p>In the following analysis, you will notice some interesting facts about powerlifting competitions.<br />
 The first one is the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).<br />
 The second is the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.<br />
@@ -3214,10 +3215,10 @@ This might give you quite a lot of motivation.<br />
 <p>To understand this analysis, you must learn an additional term in power lifters’ vocabulary, ‘Wilks’.<br />
 The ‘Wilks’ is a formula that is used to compare lifters in different body weight classes in order to find the strongest lifter while taking into account the lifter’s body weight.<br />
 <br />
-First of all, I presented the countries who have the most amount of lifters.<br />
+First of all, I presented the countries that have the most amount of lifters.<br />
 The first analysis takes the lifters that get the highest Wilks score, and checks from which countries they originated from.<br />
 The second analysis compares the average of the ten highest Wilks scores in the USA vs. Russia.<br />
-The third analysis shows the countries with the most and the least percentages of female competitors (when taking only in consideration countries with more than 200 competitors).<br />
+The third analysis shows the countries with the most and the least percentages of female competitors (when taking only into consideration countries with more than 200 competitors).<br />
 </p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -3323,9 +3324,9 @@ The third analysis shows the countries with the most and the least percentages o
 </tbody>
 </table>
 </div>
-<p>As you can see, the strongest competitors in the IPF are from the USA, Russia and Poland.<br />
-If the strength of the lifter is independent from his/her country, Poland is a surprising result because there are many countries with more competitors than Poland.<br />
-Another surprising result, is the percentage of females that compete in Sweden in comparison to Belgium.<br />
+<p>As you can see, the strongest competitors in the IPF are from the USA, Russia, and Poland.<br />
+If the strength of the lifter is independent of his/her country, Poland is a surprising result because there are many countries with more competitors than Poland.<br />
+Another surprising result is the percentage of females that compete in Sweden in comparison to Belgium.<br />
 This result is even more surprising when we look at the female percentage in Sweden and Belgium over the years:<br />
 <a href="https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE" class="uri">https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE</a><br />
 Belgium’s female percentage was higher than Sweden’s female percentage from 1960 to 2021.<br />
@@ -3336,7 +3337,7 @@ These two factors I mentioned do not suffice. Another analysis can detect countr
 Therefore, additional factors influence the observed result.<br />
 <br />
 </p>
-<h3 id="competed-the-most-amount-of-times">Competed the Most Amount of Times</h3>
+<h3 id="competed-the-most-amount-of-times">Competed the Most Amount of Times:</h3>
 <p>In this final analysis, I found the competitor that competed the most amount of times in the IPF (remember, this data includes only SBD and RAW events).<br />
 </p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3377,9 +3378,9 @@ Therefore, additional factors influence the observed result.<br />
 </div>
 <p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-9-1.gif" /><!-- --></p>
 </div>
-<p>In the graph, you can see Charlie’s bench press (in black), squat (in blue) and deadlift (in red).<br />
+<p>In the graph, you can see Charlie’s bench press (in black), squat (in blue), and deadlift (in red).<br />
 What you may find interesting is how the trends in the lifts are very similar.<br />
-The similar trends can match to the ‘chisq test’ in this project, which ultimately found a correlation between squat and bench press success and failure.<br />
+The similar trends can match the ‘chisq test’ in this project, which ultimately found a correlation between squat and bench press success and failure.<br />
 </p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
