@@ -11,15 +11,6 @@ output:
     self_contained: false
 ---
 
----
-title: "powerlifting analysis"
-author: "gal barby"
-date: "2022-10-04"
-output: 
-  html_document:
-    css: test1.css
----
-
 In this project, I will analyze powerlifting competitions from the famous federation called the IPF.\
 The first group is a series of statistical analyses that show some interesting things that may help several competitors.\
 The second group is analyses that show rare things in IPF and powerlifting in general.\
