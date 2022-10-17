@@ -27,16 +27,12 @@ After three attempts, the competitors continue to the next lift in the following
 In this project, I used the following libraries
 
 ```{r message=FALSE, warning=FALSE}
+library(flextable)
 library(pander)
-library(transformr)
-library(gifski)
 library(gganimate)
 library(gdata)
 library(readxl)
-library(writexl)
-library(MASS)
 library(ggplot2)
-library(flextable)
 library(tidyverse)
 ```
 
@@ -304,25 +300,25 @@ records_dat <- repeated_dat %>% filter(!is.na(AgeClass),!is.na(WeightClassKg),
 oldest_record <- records_dat %>% add_count(Sex,AgeClass,WeightClassKg) %>% 
   group_by(Sex,AgeClass,WeightClassKg) %>% slice_max(TotalKg) %>% 
   select(Sex,AgeClass,WeightClassKg,Name,Date,TotalKg) %>% arrange(Date)
-pander(oldest_record %>% ungroup() %>% slice(1))
+flextable(oldest_record %>% ungroup() %>% slice(1))
 #oldest record with more than 1000 competitors
 oldest_record1000 <- records_dat %>% add_count(Sex,AgeClass,WeightClassKg) %>% 
   filter(n>1000) %>% 
   group_by(Sex,AgeClass,WeightClassKg) %>% slice_max(TotalKg) %>% 
   select(Sex,AgeClass,WeightClassKg,Name,Date,TotalKg) %>% arrange(Date)
-pander(oldest_record1000 %>% ungroup() %>% slice(1))
+flextable(oldest_record1000 %>% ungroup() %>% slice(1))
 #age distribution
 Age_count <- dat %>% filter(!is.na(AgeClass))
 Age_count <- Age_count %>% count(AgeClass)
 ggplot(Age_count,aes(x=reorder(AgeClass,desc(n)),y=n)) + geom_bar(stat='identity') +
   coord_flip() + xlab("Age class") + ylab("count")
 # the oldest competitor
-pander(records_dat %>% arrange(desc(Age)) %>% 
-  select(Name,Age,BodyweightKg,WeightClassKg,Best3SquatKg,
+flextable(records_dat %>% arrange(desc(Age)) %>% 
+  select(Name,Age,BodyweightKg,Best3SquatKg,
          Best3BenchKg,Best3DeadliftKg,TotalKg) %>% slice(1))
 # the heaviest total in 80 or more age group
-pander(records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>% 
-  select(Name,Age,BodyweightKg,WeightClassKg,Best3SquatKg,
+flextable(records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>% 
+  select(Name,Age,BodyweightKg,Best3SquatKg,
          Best3BenchKg,Best3DeadliftKg,TotalKg) %>% slice(1))
 ```
 

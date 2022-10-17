@@ -119,7 +119,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["powerlifting-analysis-using-r_files/anchor-4.2.2/anchor.min.js","powerlifting-analysis-using-r_files/bowser-1.9.3/bowser.min.js","powerlifting-analysis-using-r_files/distill-2.2.21/template.v2.js","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-3-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-4-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-6-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-7-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-9-1.gif","powerlifting-analysis-using-r_files/header-attrs-2.14/header-attrs.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.map","powerlifting-analysis-using-r_files/popper-2.6.0/popper.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-bundle.umd.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-light-border.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.umd.min.js","powerlifting-analysis-using-r_files/webcomponents-2.0.0/webcomponents.js","the final ipf cleaned data2.xlsx"]}
+  {"type":"character","attributes":{},"value":["powerlifting-analysis-using-r_files/anchor-4.2.2/anchor.min.js","powerlifting-analysis-using-r_files/bowser-1.9.3/bowser.min.js","powerlifting-analysis-using-r_files/distill-2.2.21/template.v2.js","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-3-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-4-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-6-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-7-1.png","powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-9-1.gif","powerlifting-analysis-using-r_files/header-attrs-2.14/header-attrs.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.js","powerlifting-analysis-using-r_files/jquery-3.6.0/jquery-3.6.0.min.map","powerlifting-analysis-using-r_files/popper-2.6.0/popper.min.js","powerlifting-analysis-using-r_files/tabwid-1.1.0/scrool.css","powerlifting-analysis-using-r_files/tabwid-1.1.0/tabwid.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-bundle.umd.min.js","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy-light-border.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.css","powerlifting-analysis-using-r_files/tippy-6.2.7/tippy.umd.min.js","powerlifting-analysis-using-r_files/webcomponents-2.0.0/webcomponents.js","the final ipf cleaned data2.xlsx"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2396,6 +2396,8 @@ d-appendix d-footnote-list a.footnote-backlink {
 }</style>
 <!--/radix_placeholder_distill-->
   <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <link href="../../site_libs/tabwid-1.1.0/tabwid.css" rel="stylesheet" />
+  <link href="../../site_libs/tabwid-1.1.0/scrool.css" rel="stylesheet" />
   <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2466,16 +2468,12 @@ After three attempts, the competitors continue to the next lift in the following
 <p>In this project, I used the following libraries</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rapporter.github.io/pander/'>pander</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/thomasp85/transformr'>transformr</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gif.ski/'>gifski</a></span><span class='op'>)</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://rapporter.github.io/pander/'>pander</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://gganimate.com'>gganimate</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>gdata</span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://docs.ropensci.org/writexl/'>writexl</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://www.stats.ox.ac.uk/pub/MASS4/'>MASS</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ardata-fr.github.io/flextable-book/'>flextable</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
@@ -2505,7 +2503,7 @@ This is because some competitors compete more than once and that may bias the re
 <span>                  <span class='va'>Squat2Kg</span> <span class='op'>&amp;</span> <span class='va'>Bench2Kg</span> <span class='op'>&amp;</span> <span class='va'>Deadlift2Kg</span> <span class='op'>&amp;</span></span>
 <span>                  <span class='va'>Squat3Kg</span> <span class='op'>&amp;</span> <span class='va'>Bench3Kg</span> <span class='op'>&amp;</span> <span class='va'>Deadlift3Kg</span><span class='op'>)</span>,</span>
 <span>         <span class='va'>Best3SquatKg</span><span class='op'>&gt;</span><span class='fl'>0</span>,<span class='va'>Best3BenchKg</span><span class='op'>&gt;</span><span class='fl'>0</span>,<span class='va'>Best3DeadliftKg</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>MeetName</span>,<span class='op'>-</span><span class='va'>MeetTown</span>,<span class='op'>-</span><span class='va'>MeetState</span>,<span class='op'>-</span><span class='va'>MeetCountry</span>,<span class='op'>-</span><span class='va'>Federation</span>,<span class='op'>-</span><span class='va'>Equipment</span>,</span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>MeetName</span>,<span class='op'>-</span><span class='va'>MeetTown</span>,<span class='op'>-</span><span class='va'>MeetState</span>,<span class='op'>-</span><span class='va'>MeetCountry</span>,<span class='op'>-</span><span class='va'>Federation</span>,<span class='op'>-</span><span class='va'>Equipment</span>,</span>
 <span>         <span class='op'>-</span><span class='va'>Glossbrenner</span>,<span class='op'>-</span><span class='va'>Dots</span><span class='op'>)</span></span>
 <span><span class='va'>ipf_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>writexl</span><span class='fu'>::</span><span class='fu'><a href='https://docs.ropensci.org/writexl/reference/write_xlsx.html'>write_xlsx</a></span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"the final ipf cleaned data2.xlsx"</span><span class='op'>)</span></span></code></pre>
 </div>
@@ -3020,77 +3018,117 @@ This might give you quite a lot of motivation.<br />
 <span><span class='co'>#oldest record</span></span>
 <span><span class='va'>oldest_record</span> <span class='op'>&lt;-</span> <span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>add_count</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Name</span>,<span class='va'>Date</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>oldest_record</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Name</span>,<span class='va'>Date</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://davidgohel.github.io/flextable/reference/flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>oldest_record</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<table>
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 15%" />
-<col style="width: 22%" />
-<col style="width: 22%" />
-<col style="width: 18%" />
-<col style="width: 13%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Sex</th>
-<th style="text-align: center;">AgeClass</th>
-<th style="text-align: center;">WeightClassKg</th>
-<th style="text-align: center;">Name</th>
-<th style="text-align: center;">Date</th>
-<th style="text-align: center;">TotalKg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">M</td>
-<td style="text-align: center;">24-34</td>
-<td style="text-align: center;">110+</td>
-<td style="text-align: center;">Don Reinhoudt</td>
-<td style="text-align: center;">1973-11-09</td>
-<td style="text-align: center;">1034</td>
-</tr>
-</tbody>
-</table>
+<template id="5f213a3e-97b4-4033-aa16-ba0a3293ebb5"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-f48e4806{}.cl-f47ff0d0{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f48470ec{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f48470f6{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f48496e4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f48496f8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f48496f9{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f48496fa{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-f48e4806'><thead><tr style="overflow-wrap:break-word;"><td class="cl-f48496e4"><p class="cl-f48470ec"><span class="cl-f47ff0d0">Sex</span></p></td><td class="cl-f48496e4"><p class="cl-f48470ec"><span class="cl-f47ff0d0">AgeClass</span></p></td><td class="cl-f48496e4"><p class="cl-f48470ec"><span class="cl-f47ff0d0">WeightClassKg</span></p></td><td class="cl-f48496e4"><p class="cl-f48470ec"><span class="cl-f47ff0d0">Name</span></p></td><td class="cl-f48496e4"><p class="cl-f48470ec"><span class="cl-f47ff0d0">Date</span></p></td><td class="cl-f48496f8"><p class="cl-f48470f6"><span class="cl-f47ff0d0">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f48496f9"><p class="cl-f48470ec"><span class="cl-f47ff0d0">M</span></p></td><td class="cl-f48496f9"><p class="cl-f48470ec"><span class="cl-f47ff0d0">24-34</span></p></td><td class="cl-f48496f9"><p class="cl-f48470ec"><span class="cl-f47ff0d0">110+</span></p></td><td class="cl-f48496f9"><p class="cl-f48470ec"><span class="cl-f47ff0d0">Don Reinhoudt</span></p></td><td class="cl-f48496f9"><p class="cl-f48470ec"><span class="cl-f47ff0d0">1973-11-09</span></p></td><td class="cl-f48496fa"><p class="cl-f48470f6"><span class="cl-f47ff0d0">1,034.18</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="e39fe7f0-b996-495f-80ed-519ffd7bb681"></div>
+<script>
+var dest = document.getElementById("e39fe7f0-b996-495f-80ed-519ffd7bb681");
+var template = document.getElementById("5f213a3e-97b4-4033-aa16-ba0a3293ebb5");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#oldest record with more than 1000 competitors</span></span>
 <span><span class='va'>oldest_record1000</span> <span class='op'>&lt;-</span> <span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>add_count</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>n</span><span class='op'>&gt;</span><span class='fl'>1000</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Name</span>,<span class='va'>Date</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>oldest_record1000</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Sex</span>,<span class='va'>AgeClass</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Name</span>,<span class='va'>Date</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span></span>
+<span><span class='fu'><a href='https://davidgohel.github.io/flextable/reference/flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>oldest_record1000</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<table>
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 15%" />
-<col style="width: 22%" />
-<col style="width: 22%" />
-<col style="width: 18%" />
-<col style="width: 13%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Sex</th>
-<th style="text-align: center;">AgeClass</th>
-<th style="text-align: center;">WeightClassKg</th>
-<th style="text-align: center;">Name</th>
-<th style="text-align: center;">Date</th>
-<th style="text-align: center;">TotalKg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">M</td>
-<td style="text-align: center;">16-17</td>
-<td style="text-align: center;">66</td>
-<td style="text-align: center;">Yosuke Kiuchi</td>
-<td style="text-align: center;">2014-03-23</td>
-<td style="text-align: center;">620</td>
-</tr>
-</tbody>
-</table>
+<template id="3e2191be-55c0-46b2-9f3a-4ace70a51cd6"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-f4cc5c86{}.cl-f4c174c4{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f4c54c2a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f4c54c3e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f4c56386{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4c56390{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4c56391{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4c5639a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-f4cc5c86'><thead><tr style="overflow-wrap:break-word;"><td class="cl-f4c56386"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">Sex</span></p></td><td class="cl-f4c56386"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">AgeClass</span></p></td><td class="cl-f4c56386"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">WeightClassKg</span></p></td><td class="cl-f4c56386"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">Name</span></p></td><td class="cl-f4c56386"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">Date</span></p></td><td class="cl-f4c56390"><p class="cl-f4c54c3e"><span class="cl-f4c174c4">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f4c56391"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">M</span></p></td><td class="cl-f4c56391"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">16-17</span></p></td><td class="cl-f4c56391"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">66</span></p></td><td class="cl-f4c56391"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">Yosuke Kiuchi</span></p></td><td class="cl-f4c56391"><p class="cl-f4c54c2a"><span class="cl-f4c174c4">2014-03-23</span></p></td><td class="cl-f4c5639a"><p class="cl-f4c54c3e"><span class="cl-f4c174c4">620</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="12d0314a-3d6b-427f-98c8-4eb97b5eb0c0"></div>
+<script>
+var dest = document.getElementById("12d0314a-3d6b-427f-98c8-4eb97b5eb0c0");
+var template = document.getElementById("3e2191be-55c0-46b2-9f3a-4ace70a51cd6");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#age distribution</span></span>
 <span><span class='va'>Age_count</span> <span class='op'>&lt;-</span> <span class='va'>dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>AgeClass</span><span class='op'>)</span><span class='op'>)</span></span>
@@ -3101,114 +3139,116 @@ This might give you quite a lot of motivation.<br />
 <img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-7-1.png" width="624" />
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># the oldest competitor</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>Age</span>,<span class='va'>BodyweightKg</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Best3SquatKg</span>,</span>
+<span><span class='fu'><a href='https://davidgohel.github.io/flextable/reference/flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>Age</span>,<span class='va'>BodyweightKg</span>,<span class='va'>Best3SquatKg</span>,</span>
 <span>         <span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<table>
-<caption>Table continues below</caption>
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 9%" />
-<col style="width: 20%" />
-<col style="width: 21%" />
-<col style="width: 21%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Name</th>
-<th style="text-align: center;">Age</th>
-<th style="text-align: center;">BodyweightKg</th>
-<th style="text-align: center;">WeightClassKg</th>
-<th style="text-align: center;">Best3SquatKg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Svend Stensgaard</td>
-<td style="text-align: center;">92.5</td>
-<td style="text-align: center;">78.2</td>
-<td style="text-align: center;">83</td>
-<td style="text-align: center;">65</td>
-</tr>
-</tbody>
-</table>
-<table style="width:60%;">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 25%" />
-<col style="width: 13%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Best3BenchKg</th>
-<th style="text-align: center;">Best3DeadliftKg</th>
-<th style="text-align: center;">TotalKg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">125</td>
-<td style="text-align: center;">250</td>
-</tr>
-</tbody>
-</table>
+<template id="1891abbb-95cc-46f3-a56f-08d9323cd4b9"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-f4ff862e{}.cl-f4f4bb36{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f4f9cd60{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f4f9cd6a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f4f9e12e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4f9e138{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4f9e142{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f4f9e14c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-f4ff862e'><thead><tr style="overflow-wrap:break-word;"><td class="cl-f4f9e12e"><p class="cl-f4f9cd60"><span class="cl-f4f4bb36">Name</span></p></td><td class="cl-f4f9e138"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">Age</span></p></td><td class="cl-f4f9e138"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">BodyweightKg</span></p></td><td class="cl-f4f9e138"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">Best3SquatKg</span></p></td><td class="cl-f4f9e138"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">Best3BenchKg</span></p></td><td class="cl-f4f9e138"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">Best3DeadliftKg</span></p></td><td class="cl-f4f9e138"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f4f9e142"><p class="cl-f4f9cd60"><span class="cl-f4f4bb36">Svend Stensgaard</span></p></td><td class="cl-f4f9e14c"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">92.5</span></p></td><td class="cl-f4f9e14c"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">78.2</span></p></td><td class="cl-f4f9e14c"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">65</span></p></td><td class="cl-f4f9e14c"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">60</span></p></td><td class="cl-f4f9e14c"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">125</span></p></td><td class="cl-f4f9e14c"><p class="cl-f4f9cd6a"><span class="cl-f4f4bb36">250</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="6f05b1d0-cc4a-48fd-b810-00b2917d6bef"></div>
+<script>
+var dest = document.getElementById("6f05b1d0-cc4a-48fd-b810-00b2917d6bef");
+var template = document.getElementById("1891abbb-95cc-46f3-a56f-08d9323cd4b9");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># the heaviest total in 80 or more age group</span></span>
-<span><span class='fu'><a href='https://rdrr.io/pkg/pander/man/pander.html'>pander</a></span><span class='op'>(</span><span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>&gt;=</span><span class='fl'>80</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>Age</span>,<span class='va'>BodyweightKg</span>,<span class='va'>WeightClassKg</span>,<span class='va'>Best3SquatKg</span>,</span>
+<span><span class='fu'><a href='https://davidgohel.github.io/flextable/reference/flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>records_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Age</span><span class='op'>&gt;=</span><span class='fl'>80</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice_max</a></span><span class='op'>(</span><span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Name</span>,<span class='va'>Age</span>,<span class='va'>BodyweightKg</span>,<span class='va'>Best3SquatKg</span>,</span>
 <span>         <span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<table>
-<caption>Table continues below</caption>
-<colgroup>
-<col style="width: 15%" />
-<col style="width: 8%" />
-<col style="width: 18%" />
-<col style="width: 20%" />
-<col style="width: 18%" />
-<col style="width: 18%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Name</th>
-<th style="text-align: center;">Age</th>
-<th style="text-align: center;">BodyweightKg</th>
-<th style="text-align: center;">WeightClassKg</th>
-<th style="text-align: center;">Best3SquatKg</th>
-<th style="text-align: center;">Best3BenchKg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Emil Alin</td>
-<td style="text-align: center;">81.5</td>
-<td style="text-align: center;">112.7</td>
-<td style="text-align: center;">120</td>
-<td style="text-align: center;">155</td>
-<td style="text-align: center;">110</td>
-</tr>
-</tbody>
-</table>
-<table style="width:39%;">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 13%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Best3DeadliftKg</th>
-<th style="text-align: center;">TotalKg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">200</td>
-<td style="text-align: center;">465</td>
-</tr>
-</tbody>
-</table>
+<template id="93e3ce34-8dce-4637-b107-d87fae07e30b"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  border-color: transparent;
+  caption-side: top;
+}
+.tabwid-caption-bottom table{
+  caption-side: bottom;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+.katex-display {
+    margin: 0 0 !important;
+}
+</style><div class="tabwid"><style>.cl-f51a76dc{}.cl-f50fb09e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f5138db8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f5138dc2{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-f513a1f4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f513a1fe{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f513a208{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f513a209{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-f51a76dc'><thead><tr style="overflow-wrap:break-word;"><td class="cl-f513a1f4"><p class="cl-f5138db8"><span class="cl-f50fb09e">Name</span></p></td><td class="cl-f513a1fe"><p class="cl-f5138dc2"><span class="cl-f50fb09e">Age</span></p></td><td class="cl-f513a1fe"><p class="cl-f5138dc2"><span class="cl-f50fb09e">BodyweightKg</span></p></td><td class="cl-f513a1fe"><p class="cl-f5138dc2"><span class="cl-f50fb09e">Best3SquatKg</span></p></td><td class="cl-f513a1fe"><p class="cl-f5138dc2"><span class="cl-f50fb09e">Best3BenchKg</span></p></td><td class="cl-f513a1fe"><p class="cl-f5138dc2"><span class="cl-f50fb09e">Best3DeadliftKg</span></p></td><td class="cl-f513a1fe"><p class="cl-f5138dc2"><span class="cl-f50fb09e">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f513a208"><p class="cl-f5138db8"><span class="cl-f50fb09e">Emil Alin</span></p></td><td class="cl-f513a209"><p class="cl-f5138dc2"><span class="cl-f50fb09e">81.5</span></p></td><td class="cl-f513a209"><p class="cl-f5138dc2"><span class="cl-f50fb09e">112.7</span></p></td><td class="cl-f513a209"><p class="cl-f5138dc2"><span class="cl-f50fb09e">155</span></p></td><td class="cl-f513a209"><p class="cl-f5138dc2"><span class="cl-f50fb09e">110</span></p></td><td class="cl-f513a209"><p class="cl-f5138dc2"><span class="cl-f50fb09e">200</span></p></td><td class="cl-f513a209"><p class="cl-f5138dc2"><span class="cl-f50fb09e">465</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="4af7c9af-cfa5-479e-9566-3eab7f9def8e"></div>
+<script>
+var dest = document.getElementById("4af7c9af-cfa5-479e-9566-3eab7f9def8e");
+var template = document.getElementById("93e3ce34-8dce-4637-b107-d87fae07e30b");
+var caption = template.content.querySelector("caption");
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script>
+
 </div>
 <h3 id="differences-between-countries">Differences Between Countries:</h3>
 <p>To understand this analysis, you must learn an additional term in power lifters’ vocabulary, ‘Wilks’.<br />
@@ -3363,7 +3403,7 @@ Therefore, additional factors influence the observed result.<br />
 </table>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>Charlie_progress</span> <span class='op'>&lt;-</span> <span class='va'>repeated_dat</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Name</span><span class='op'>==</span><span class='st'>"Charlie Chester"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
-<span>  <span class='fu'><a href='https://rdrr.io/pkg/MASS/man/lm.ridge.html'>select</a></span><span class='op'>(</span><span class='va'>Date</span>,<span class='va'>Best3SquatKg</span>,<span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>Date</span>,<span class='va'>Best3SquatKg</span>,<span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span></span>
 <span><span class='va'>Charlie_progress</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>Charlie_progress</span>, Date<span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>Charlie_plot</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>Charlie_progress</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x<span class='op'>=</span><span class='va'>Date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>Best3SquatKg</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='st'>"blue"</span><span class='op'>)</span> <span class='op'>+</span> </span>
