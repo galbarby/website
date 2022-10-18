@@ -16,4 +16,4 @@ site: distill::distill_website
 ---
 
 I am a statistics-economics student at the University of Haifa, interested in data and teaching. I serve as an assistant lecturer in Econometrics and Microeconomics courses.\
-My hobbies include sports, chess and playing guitar. I compete in powerlifting competitions and also prepare athletes for powerlifting competitions.
+My hobbies include sports, chess, and playing guitar. I compete in powerlifting competitions and also prepare athletes for powerlifting competitions.

@@ -20,7 +20,7 @@ Every lift has three referees that raise a white flag or red flag.
 For “good lift” the competitor must receive at least two white flags. \
 In each lift there can be some reasons for red flags, the obvious one is if the competitor did not complete the lift.\
 The lifter’s best valid attempt (heaviest “good lift”) on each lift counts toward the competition “total”.\
-After three attempts, the competitors continue to the next lift in the following order: squat, bench press, and deadlift. The winner in each category (The category is sectioned by gender, age, and weight) is the one with the heaviest “total”.
+After three attempts, the competitors continue to the next lift in the following order: squat, bench press, and deadlift. The winner in each category (the category is sectioned by gender, age, and weight) is the one with the heaviest “total”.
 \
 
 
@@ -49,7 +49,7 @@ their gender and weight class were identified.\
 all the attempts were identified with at least one "good lift" in every exercise.\
 I cleaned the data more than required just in case (even with the clean data, there is enough information).\
 The last thing I did was to save only important information about every competitor (row).\
-The meet name for example is irrelevant to the following analysis.\
+The meet name, for example, is irrelevant to this project.\
 Next, I split the clean data frame into two different data frames.\
 The first one is the clean data that I created with the next code.\
 The second data frame is data that includes one competition per competitor.\
@@ -71,7 +71,8 @@ ipf_data %>% writexl::write_xlsx(path = "the final ipf cleaned data2.xlsx")
 
 
 ### Bench Press - Squat Ratio Difference Between Male and Female:
-The first analysis checks a familiar phenomenon when males in general have stronger bodies than females.\
+The first analysis checks a familiar phenomenon:\
+when males, in general, have stronger bodies than females,\
 The difference is not very significant in terms of the lower body, in comparison to the upper body, where there is a major dissimilarity.\
 The squat is an exercise that ably demonstrates lower body strength and the bench press is an exercise that effectively demonstrates upper body strength.\
 So, in the following analysis, I checked the ratio between the bench press of the males versus females and I compared it to the ratio of the males' and females' squats.\
@@ -226,7 +227,8 @@ G_sq <- dat %>% filter(G_squat3==1) %>% nrow()
 G_bp <- dat %>% filter(G_bench3==1) %>% nrow()
 G_dl <- dat %>% filter(G_deadlift3==1) %>% nrow()
 pop <- dat %>% nrow()
-pander(c(G_sq/pop,G_bp/pop,G_dl/pop))
+precent <- round(c(G_sq/pop,G_bp/pop,G_dl/pop),2)
+writeLines(as.character(precent))
 my_test4 <- pairwise.prop.test(x = c(G_sq,G_bp,G_dl), n = rep(pop,3), p.adjust.method = "bonferroni")
 pander(my_test4,split.cells = 2)
 
@@ -262,7 +264,7 @@ p
 
 
 The first analysis found that on average, the percentage of the "good lift" on the third attempt is:\
-squat - 67%, bench press - 45%, deadlift - 65%.\
+squat - 67%, bench press - 46%, deadlift - 65%.\
 With the Bonferroni method, I found that the difference between every lift is statistically highly significant.\
 (In part of the table, you can see a p-value that is equal to zero, that's because it is too low).\
 The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of "good lift" is equal between squat and deadlift.\
@@ -336,7 +338,7 @@ The third analysis shows the countries with the most and the least percentages o
 ```{r}
 pander(dat %>% filter(!is.na(Country)) %>% count(Country) %>% arrange(desc(n)) %>% head())
 # strongest competitors
-pander(dat %>% arrange(desc(Wilks)) %>% slice(1:5) %>% pull(Country) %>% unique())
+writeLines(dat %>% arrange(desc(Wilks)) %>% slice(1:5) %>% pull(Country) %>% unique())
 #USA vs Russia
 pander(dat %>% filter(Country=="USA") %>% arrange(desc(Wilks)) %>% slice(1:10) %>% 
   pull(Wilks) %>% mean())
