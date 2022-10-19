@@ -9,6 +9,10 @@ date: 2022-10-08
 output:
   distill::distill_article:
     self_contained: false
+    code_folding: true
+    toc: true
+    toc_depth: 2
+    toc_float: true
 ---
 
 In this project, I will analyze powerlifting competitions from the famous federation called the IPF.\
@@ -24,7 +28,7 @@ After three attempts, the competitors continue to the next lift in the following
 \
 
 
-In this project, I used the following libraries
+To start, let's load the following libraries:
 
 ```{r message=FALSE, warning=FALSE}
 library(flextable)
@@ -68,9 +72,21 @@ ipf_data <- dat %>%
 ipf_data %>% writexl::write_xlsx(path = "the final ipf cleaned data2.xlsx")
 ```
 
+<details>
 
+<summary>
 
-### Bench Press - Squat Ratio Difference Between Male and Female:
+*More about the data cleaning*
+
+</summary>
+
+in first i ..
+
+</details>
+
+# Statistical Analyses
+
+## Bench Press - Squat Ratio Difference Between Male and Female:
 The first analysis checks a familiar phenomenon:\
 when males, in general, have stronger bodies than females,\
 The difference is not very significant in terms of the lower body, in comparison to the upper body, where there is a major dissimilarity.\
@@ -115,7 +131,7 @@ The result is statistically highly significant and this justifies the alternativ
 \
 \
 
-### Bench Press - Deadlift Ratio:
+## Bench Press - Deadlift Ratio:
 
 As we saw, the ratio between two different lifts in one group can be unequal to the ratio of the same lifts in another type of group.\
 Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench press in my category) proposed the following hypothesis:\
@@ -207,13 +223,14 @@ In addition, I would recommend reducing some load on this competitor's push exer
 Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.\
 
 
-### Good Lift and No Lift Analysis:
+## Good Lift and No Lift Analysis:
 The last statistic analysis consists of two analyses.\
 The first one detects if there is the same quantity of "good lift" in each exercise.\
 The second analysis checks if there is a correlation between one lift fail/success and another lift fail/success.\
 In these two analyses, I used the third attempt of every lift.\
 In the second analysis, I analyzed the correlation between the squat and the bench press because there are the most diverse exercises (therefore, the correlation between them is less obvious than the other combination).\
 
+### Quantity of “good lift” in different lifts:
 
 ```{r warning=FALSE}
 #prop test squat3 bench3 and deadlift3 no lift
@@ -231,7 +248,11 @@ precent <- round(c(G_sq/pop,G_bp/pop,G_dl/pop),2)
 writeLines(as.character(precent))
 my_test4 <- pairwise.prop.test(x = c(G_sq,G_bp,G_dl), n = rep(pop,3), p.adjust.method = "bonferroni")
 pander(my_test4,split.cells = 2)
+```
 
+### Correlation between exercises’ success/fails:
+
+```{r}
 #chisq test no lift squat and bench
 my_test5 <- chisq.test(dat$G_squat3,dat$G_bench3,correct = F)
 pander(my_test5,split.cells = 2)
@@ -259,9 +280,7 @@ p <- ggplot(df, aes(x="", y=value, fill=group)) +
             position = position_stack(vjust = 0.5)) +
   coord_polar("y", start=0) + theme_void() + facet_wrap(~type)
 p
-
 ```
-
 
 The first analysis found that on average, the percentage of the "good lift" on the third attempt is:\
 squat - 67%, bench press - 46%, deadlift - 65%.\
@@ -282,8 +301,9 @@ While on the expected option (the option that there is no correlation between th
 In addition to the intuitive explanation, you can see the 'chisq test' before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.\
 On the 'chisq test', I got a statistically significant result.\
 
+# Non-statistical Analyses
 
-### Wilks and Records Analysis:
+## Wilks and Records Analysis:
 In the following analysis, you will notice some interesting facts about powerlifting competitions.\
 The first one is the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).\
 The second is the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.\
@@ -326,7 +346,7 @@ flextable(records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>%
 
 
 
-### Differences Between Countries:
+## Differences Between Countries:
 To understand this analysis, you must learn an additional term in power lifters' vocabulary, 'Wilks'.\
 The 'Wilks' is a formula that is used to compare lifters in different body weight classes in order to find the strongest lifter while taking into account the lifter's body weight.\
 \
@@ -366,7 +386,7 @@ Therefore, additional factors influence the observed result.\
 \
 
 
-### Competed the Most Amount of Times:
+## Competed the Most Amount of Times:
 
 In this final analysis, I found the competitor that competed the most amount of times in the IPF (remember, this data includes only SBD and RAW events).\
 
