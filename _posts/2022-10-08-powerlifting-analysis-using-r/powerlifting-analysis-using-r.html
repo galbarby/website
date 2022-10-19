@@ -1700,21 +1700,24 @@ Show code
 </details>
 <p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<p>The essence of the result is as follows:<br />
-The average weight of the males’ bench press is about 68% of the weight of their squat.<br />
-The average weight of the Females’ bench press is about 57% of the weight of their squat.
-The result is statistically highly significant and this justifies the alternative hypothesis.<br />
-<br />
-<br />
-<br />
+<p><strong>The essence of the result is as follows:</strong><br />
+<strong>The average weight of the males’ bench press is about 68% of the weight of their squat.</strong><br />
+<strong>The average weight of the Females’ bench press is about 57% of the weight of their squat.</strong>
+<strong>The result is statistically highly significant and this justifies the alternative hypothesis.</strong><br />
 <br />
 <br />
 </p>
 <h2 id="bench-press---deadlift-ratio">Bench Press - Deadlift Ratio</h2>
 <p>As we saw, the ratio between two different lifts in one group can be unequal to the ratio of the same lifts in another type of group.<br />
-Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench press in my category) proposed the following hypothesis:<br />
-There is a difference between the ratio of two lifts in different body-weight classes.<br />
-The deadlift is a pull exercise, and the bench press is a push exercise.<br />
+</p>
+<blockquote>
+<p>Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench press in my category) proposed the following hypothesis:</p>
+<blockquote>
+<p>There is a difference between the ratio of two lifts in different body-weight classes.<br />
+</p>
+</blockquote>
+</blockquote>
+<p>The deadlift is a pull exercise, and the bench press is a push exercise.<br />
 Therefore, there is an importance in the ratio between them for reasons of balance and body health.<br />
 Consequently, I decided to check the ratio between the deadlift and bench press using the following hypothesis of Elchonon:<br />
 <strong>(DL - dead lift)</strong><br />
@@ -1724,6 +1727,7 @@ Consequently, I decided to check the ratio between the deadlift and bench press 
 H_O: \dfrac{HWBP}{HWDL}&lt;=\dfrac{LWBP}{LWDL}\\
 H1: \dfrac{HWBP}{HWDL}\hspace{2.2mm}&gt;\hspace{2.2mm}\dfrac{LWBP}{LWDL}\\
 \]</span></p>
+<h3 id="difference-between-various-competitors">Difference between various competitors:</h3>
 <p>Elchonon believes that the ratio between bench press and deadlift is higher with heavy-weight competitors in comparison to light-weight competitors.<br />
 So, in the following analysis, I studied the hypothesis with multiple comparisons between varying weight classes.<br />
 Because we know that the ratio between different lifts can be influenced by gender, I performed the analysis only on males.<br />
@@ -1918,12 +1922,14 @@ Show code
 </ul>
 <!-- end of list -->
 </div>
-<p>As you can see, the bench press weight of the lightest weight class is 50.7% of the weight of their deadlift.<br />
-You can see that when the weight class increases, the percentage goes up too.<br />
-In addition, every pairwise comparison is statistically highly significant.<br />
+<p><strong>As you can see, the bench press weight of the lightest weight class is 50.7% of the weight of their deadlift.</strong><br />
+<strong>You can see that when the weight class increases, the percentage goes up too.</strong><br />
+<strong>In addition, every pairwise comparison is statistically highly significant.</strong><br />
 </p>
-<p>This analysis is not enough to give suggestions, because each group has individual characteristics that can affect this result.<br />
+<h3 id="difference-between-the-same-competitors">difference between the same competitors:</h3>
+<p>The previous analysis is not enough to give suggestions, because each group has individual characteristics that can affect this result.<br />
 </p>
+<p><strong>(<span class="math inline">\(BD_{ratio}\)</span> - bench press - deadlift ratio)</strong></p>
 <p><span class="math display">\[
 BD_{ratio}=weight_{class}+\epsilon
 \]</span>
@@ -2003,7 +2009,7 @@ difference</th>
 <p>Now, it is easier for me to suggest some things.<br />
 For example, for an individual who has shoulder pain that is caused by stronger push muscles than pull muscles, I will suggest considering this analysis.<br />
 In addition, I would recommend reducing some load on this competitor’s push exercise and to lose body weight.<br />
-Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.<br />
+<strong>Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.</strong><br />
 </p>
 <h2 id="good-lift-and-no-lift-analysis">Good Lift and No Lift Analysis</h2>
 <p>The last statistic analysis consists of two analyses.<br />
@@ -2080,6 +2086,15 @@ Show code
 </ul>
 <!-- end of list -->
 </div>
+<p><strong>The first analysis found that on average, the percentage of the “good lift” on the third attempt is:</strong><br />
+<strong>squat - 67%, bench press - 46%, deadlift - 65%.</strong><br />
+With the Bonferroni method, I found that the difference between every lift is statistically highly significant.<br />
+(In part of the table, you can see a p-value that is equal to zero, that’s because it is too low).<br />
+The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of “good lift” is equal between squat and deadlift.<br />
+<strong>One interesting thing I found that powerlifters can use from this analysis, is the low proportion of “good lift” in the bench press.</strong><br />
+<strong>On average, there is more “no lift” than “good lift” in the third attempt, so powerlifters should take into account this result and plan the bench press attempts accordingly.</strong><br />
+<br />
+</p>
 <h3 id="correlation-between-exercises-successfails">Correlation between exercises’ success/fails:</h3>
 <div class="layout-chunk" data-layout="l-body">
 <details>
@@ -2151,33 +2166,26 @@ Show code
 </details>
 <p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
 </div>
-<p>The first analysis found that on average, the percentage of the “good lift” on the third attempt is:<br />
-squat - 67%, bench press - 46%, deadlift - 65%.<br />
-With the Bonferroni method, I found that the difference between every lift is statistically highly significant.<br />
-(In part of the table, you can see a p-value that is equal to zero, that’s because it is too low).<br />
-The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of “good lift” is equal between squat and deadlift.<br />
-One interesting thing I found that powerlifters can use from this analysis, is the low proportion of “good lift” in the bench press.<br />
-On average, there is more “no lift” than “good lift” in the third attempt, so powerlifters should take into account this result and plan the bench press attempts accordingly.<br />
-<br />
-I will explain the second analysis via the pie chart:<br />
-On the right side you can see the group splitting, the left number refers to bench press and the right number refers to squat.<br />
-For example, 01 (the color green) means “no lift” for bench press, and “good lift” for squat.<br />
+<p><strong>I will explain the second analysis via the pie chart:</strong><br />
+<strong>On the right side you can see the group splitting, the left number refers to bench press and the right number refers to squat.</strong><br />
+<strong>For example, ‘01’ (the color green) means “no lift” for bench press, and “good lift” for squat.</strong><br />
 The left pie chart shows the expected values of each option (the result that was expected if there is no correlation between the lifts).<br />
 The right pie chart shows the real values that I received (the observed values).<br />
-As you can see the ‘00’ and ‘11’ groups received a bigger part on the observed chart, while the ‘01’ and ‘10’ got a smaller part on the observed chart.<br />
-So, the squat and the bench press get the same value 52.68% of the time (“good lift”+“no lift”).<br />
-While on the expected option (the option that there is no correlation between them) they get the same value only 48.6% of the time.<br />
+<strong>As you can see the ‘00’ and ‘11’ groups received a bigger part on the observed chart, while the ‘01’ and ‘10’ got a smaller part on the observed chart.</strong><br />
+<strong>So, the squat and the bench press get the same value 52.68% of the time (“good lift”+“no lift”).</strong><br />
+<strong>While on the expected option (the option that there is no correlation between them) they get the same value only 48.6% of the time.</strong><br />
 In addition to the intuitive explanation, you can see the ‘chisq test’ before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.<br />
 On the ‘chisq test’, I got a statistically significant result.<br />
 </p>
 <h1 id="non-statistical-analyses">Non-statistical Analyses</h1>
 <h2 id="wilks-and-records-analysis">Wilks and Records Analysis</h2>
 <p>In the following analysis, you will notice some interesting facts about powerlifting competitions.<br />
-The first one is the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).<br />
-The second is the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.<br />
-The third is the oldest competitor that ever competed on the IPF.<br />
+First of all, I presented the distribution of the age class from the age class with the least competitors to the age class with the most competitors.<br />
+The first analysis shows the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).<br />
+The second analysis shows the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.<br />
+The third analysis shows the oldest competitor that ever competed on the IPF.<br />
 You can see the impressive weight he lifted as well.<br />
-The fourth is the heaviest total that a competitor 80 years old or more lifted in a competition.<br />
+The fourth analysis shows the heaviest total that a competitor 80 years old or more lifted in a competition.<br />
 This might give you quite a lot of motivation.<br />
 </p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2196,7 +2204,7 @@ Show code
 <span><span class='fu'><a href='https://davidgohel.github.io/flextable/reference/flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>oldest_record</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<template id="e5b06d87-a84d-4d90-ac2c-901cbe5c8bb3"><style>
+<template id="561f3d53-2685-4430-93cd-794be3723353"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -2235,11 +2243,11 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-6d7d1c9a{}.cl-6d581530{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6d6743f2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d67441a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6d679bcc{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d679bf4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d679bfe{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6d679c12{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-6d7d1c9a'><thead><tr style="overflow-wrap:break-word;"><td class="cl-6d679bcc"><p class="cl-6d6743f2"><span class="cl-6d581530">Sex</span></p></td><td class="cl-6d679bcc"><p class="cl-6d6743f2"><span class="cl-6d581530">AgeClass</span></p></td><td class="cl-6d679bcc"><p class="cl-6d6743f2"><span class="cl-6d581530">WeightClassKg</span></p></td><td class="cl-6d679bcc"><p class="cl-6d6743f2"><span class="cl-6d581530">Name</span></p></td><td class="cl-6d679bcc"><p class="cl-6d6743f2"><span class="cl-6d581530">Date</span></p></td><td class="cl-6d679bf4"><p class="cl-6d67441a"><span class="cl-6d581530">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6d679bfe"><p class="cl-6d6743f2"><span class="cl-6d581530">M</span></p></td><td class="cl-6d679bfe"><p class="cl-6d6743f2"><span class="cl-6d581530">24-34</span></p></td><td class="cl-6d679bfe"><p class="cl-6d6743f2"><span class="cl-6d581530">110+</span></p></td><td class="cl-6d679bfe"><p class="cl-6d6743f2"><span class="cl-6d581530">Don Reinhoudt</span></p></td><td class="cl-6d679bfe"><p class="cl-6d6743f2"><span class="cl-6d581530">1973-11-09</span></p></td><td class="cl-6d679c12"><p class="cl-6d67441a"><span class="cl-6d581530">1,034.18</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="85828620-88e2-43e9-b92a-f4c4b146f83a"></div>
+</style><div class="tabwid"><style>.cl-0c4c793c{}.cl-0c3b07ce{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0c4046e4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0c4046f8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0c4060b6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0c4060c0{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0c4060ca{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0c4060cb{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-0c4c793c'><thead><tr style="overflow-wrap:break-word;"><td class="cl-0c4060b6"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">Sex</span></p></td><td class="cl-0c4060b6"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">AgeClass</span></p></td><td class="cl-0c4060b6"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">WeightClassKg</span></p></td><td class="cl-0c4060b6"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">Name</span></p></td><td class="cl-0c4060b6"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">Date</span></p></td><td class="cl-0c4060c0"><p class="cl-0c4046f8"><span class="cl-0c3b07ce">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-0c4060ca"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">M</span></p></td><td class="cl-0c4060ca"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">24-34</span></p></td><td class="cl-0c4060ca"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">110+</span></p></td><td class="cl-0c4060ca"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">Don Reinhoudt</span></p></td><td class="cl-0c4060ca"><p class="cl-0c4046e4"><span class="cl-0c3b07ce">1973-11-09</span></p></td><td class="cl-0c4060cb"><p class="cl-0c4046f8"><span class="cl-0c3b07ce">1,034.18</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="e61e9abf-2e8b-4bce-b0b6-321dee92898f"></div>
 <script>
-var dest = document.getElementById("85828620-88e2-43e9-b92a-f4c4b146f83a");
-var template = document.getElementById("e5b06d87-a84d-4d90-ac2c-901cbe5c8bb3");
+var dest = document.getElementById("e61e9abf-2e8b-4bce-b0b6-321dee92898f");
+var template = document.getElementById("561f3d53-2685-4430-93cd-794be3723353");
 var caption = template.content.querySelector("caption");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
@@ -2259,7 +2267,7 @@ Show code
 <span><span class='fu'><a href='https://davidgohel.github.io/flextable/reference/flextable.html'>flextable</a></span><span class='op'>(</span><span class='va'>oldest_record1000</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>ungroup</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<template id="b2e7f229-630b-48fe-ab38-4966aa2b2851"><style>
+<template id="0bb7755b-f9d2-4f69-b589-b6650d65ffa5"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -2298,11 +2306,11 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-6e234598{}.cl-6e014ad8{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6e0dc808{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6e0dc826{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6e0e0ec6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e0e0eee{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e0e0ef8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6e0e0f02{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-6e234598'><thead><tr style="overflow-wrap:break-word;"><td class="cl-6e0e0ec6"><p class="cl-6e0dc808"><span class="cl-6e014ad8">Sex</span></p></td><td class="cl-6e0e0ec6"><p class="cl-6e0dc808"><span class="cl-6e014ad8">AgeClass</span></p></td><td class="cl-6e0e0ec6"><p class="cl-6e0dc808"><span class="cl-6e014ad8">WeightClassKg</span></p></td><td class="cl-6e0e0ec6"><p class="cl-6e0dc808"><span class="cl-6e014ad8">Name</span></p></td><td class="cl-6e0e0ec6"><p class="cl-6e0dc808"><span class="cl-6e014ad8">Date</span></p></td><td class="cl-6e0e0eee"><p class="cl-6e0dc826"><span class="cl-6e014ad8">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6e0e0ef8"><p class="cl-6e0dc808"><span class="cl-6e014ad8">M</span></p></td><td class="cl-6e0e0ef8"><p class="cl-6e0dc808"><span class="cl-6e014ad8">16-17</span></p></td><td class="cl-6e0e0ef8"><p class="cl-6e0dc808"><span class="cl-6e014ad8">66</span></p></td><td class="cl-6e0e0ef8"><p class="cl-6e0dc808"><span class="cl-6e014ad8">Yosuke Kiuchi</span></p></td><td class="cl-6e0e0ef8"><p class="cl-6e0dc808"><span class="cl-6e014ad8">2014-03-23</span></p></td><td class="cl-6e0e0f02"><p class="cl-6e0dc826"><span class="cl-6e014ad8">620</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="f3b177cd-4dff-435f-92a0-9ade3d8b3d0b"></div>
+</style><div class="tabwid"><style>.cl-0cb75e96{}.cl-0c9fa27e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0ca858f6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0ca8590a{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0ca897c6{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0ca897da{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0ca897e4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0ca897ee{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-0cb75e96'><thead><tr style="overflow-wrap:break-word;"><td class="cl-0ca897c6"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">Sex</span></p></td><td class="cl-0ca897c6"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">AgeClass</span></p></td><td class="cl-0ca897c6"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">WeightClassKg</span></p></td><td class="cl-0ca897c6"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">Name</span></p></td><td class="cl-0ca897c6"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">Date</span></p></td><td class="cl-0ca897da"><p class="cl-0ca8590a"><span class="cl-0c9fa27e">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-0ca897e4"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">M</span></p></td><td class="cl-0ca897e4"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">16-17</span></p></td><td class="cl-0ca897e4"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">66</span></p></td><td class="cl-0ca897e4"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">Yosuke Kiuchi</span></p></td><td class="cl-0ca897e4"><p class="cl-0ca858f6"><span class="cl-0c9fa27e">2014-03-23</span></p></td><td class="cl-0ca897ee"><p class="cl-0ca8590a"><span class="cl-0c9fa27e">620</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="d44167ac-ac62-4640-b629-4d0efd931fc7"></div>
 <script>
-var dest = document.getElementById("f3b177cd-4dff-435f-92a0-9ade3d8b3d0b");
-var template = document.getElementById("b2e7f229-630b-48fe-ab38-4966aa2b2851");
+var dest = document.getElementById("d44167ac-ac62-4640-b629-4d0efd931fc7");
+var template = document.getElementById("0bb7755b-f9d2-4f69-b589-b6650d65ffa5");
 var caption = template.content.querySelector("caption");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
@@ -2333,7 +2341,7 @@ Show code
 <span>         <span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<template id="2a7ce970-08bb-4856-b825-c8c761b66bd5"><style>
+<template id="809abc8d-f3b3-47b8-95e9-dd348c3a045a"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -2372,11 +2380,11 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-6ebcdec4{}.cl-6e9b7fb8{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6ea85990{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6ea859b8{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6ea89c84{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6ea89c98{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6ea89cac{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6ea89cad{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-6ebcdec4'><thead><tr style="overflow-wrap:break-word;"><td class="cl-6ea89c84"><p class="cl-6ea85990"><span class="cl-6e9b7fb8">Name</span></p></td><td class="cl-6ea89c98"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">Age</span></p></td><td class="cl-6ea89c98"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">BodyweightKg</span></p></td><td class="cl-6ea89c98"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">Best3SquatKg</span></p></td><td class="cl-6ea89c98"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">Best3BenchKg</span></p></td><td class="cl-6ea89c98"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">Best3DeadliftKg</span></p></td><td class="cl-6ea89c98"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6ea89cac"><p class="cl-6ea85990"><span class="cl-6e9b7fb8">Svend Stensgaard</span></p></td><td class="cl-6ea89cad"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">92.5</span></p></td><td class="cl-6ea89cad"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">78.2</span></p></td><td class="cl-6ea89cad"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">65</span></p></td><td class="cl-6ea89cad"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">60</span></p></td><td class="cl-6ea89cad"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">125</span></p></td><td class="cl-6ea89cad"><p class="cl-6ea859b8"><span class="cl-6e9b7fb8">250</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="fd9f5d6e-c669-4fe6-93fb-283c2e44851c"></div>
+</style><div class="tabwid"><style>.cl-0d0938f6{}.cl-0cfd2962{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0d023556{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0d023560{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0d024b18{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0d024b22{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0d024b23{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0d024b2c{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-0d0938f6'><thead><tr style="overflow-wrap:break-word;"><td class="cl-0d024b18"><p class="cl-0d023556"><span class="cl-0cfd2962">Name</span></p></td><td class="cl-0d024b22"><p class="cl-0d023560"><span class="cl-0cfd2962">Age</span></p></td><td class="cl-0d024b22"><p class="cl-0d023560"><span class="cl-0cfd2962">BodyweightKg</span></p></td><td class="cl-0d024b22"><p class="cl-0d023560"><span class="cl-0cfd2962">Best3SquatKg</span></p></td><td class="cl-0d024b22"><p class="cl-0d023560"><span class="cl-0cfd2962">Best3BenchKg</span></p></td><td class="cl-0d024b22"><p class="cl-0d023560"><span class="cl-0cfd2962">Best3DeadliftKg</span></p></td><td class="cl-0d024b22"><p class="cl-0d023560"><span class="cl-0cfd2962">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-0d024b23"><p class="cl-0d023556"><span class="cl-0cfd2962">Svend Stensgaard</span></p></td><td class="cl-0d024b2c"><p class="cl-0d023560"><span class="cl-0cfd2962">92.5</span></p></td><td class="cl-0d024b2c"><p class="cl-0d023560"><span class="cl-0cfd2962">78.2</span></p></td><td class="cl-0d024b2c"><p class="cl-0d023560"><span class="cl-0cfd2962">65</span></p></td><td class="cl-0d024b2c"><p class="cl-0d023560"><span class="cl-0cfd2962">60</span></p></td><td class="cl-0d024b2c"><p class="cl-0d023560"><span class="cl-0cfd2962">125</span></p></td><td class="cl-0d024b2c"><p class="cl-0d023560"><span class="cl-0cfd2962">250</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="30f9f73c-fc72-4798-a909-8cdb573638ad"></div>
 <script>
-var dest = document.getElementById("fd9f5d6e-c669-4fe6-93fb-283c2e44851c");
-var template = document.getElementById("2a7ce970-08bb-4856-b825-c8c761b66bd5");
+var dest = document.getElementById("30f9f73c-fc72-4798-a909-8cdb573638ad");
+var template = document.getElementById("809abc8d-f3b3-47b8-95e9-dd348c3a045a");
 var caption = template.content.querySelector("caption");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
@@ -2394,7 +2402,7 @@ Show code
 <span>         <span class='va'>Best3BenchKg</span>,<span class='va'>Best3DeadliftKg</span>,<span class='va'>TotalKg</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
 </details>
-<template id="745f855b-b5d6-47af-bd90-9a6e76a6cd64"><style>
+<template id="20cdd913-8b71-48cb-ad99-cd4703b501e6"><style>
 .tabwid table{
   border-spacing:0px !important;
   border-collapse:collapse;
@@ -2433,11 +2441,11 @@ background-color: transparent;
 .katex-display {
     margin: 0 0 !important;
 }
-</style><div class="tabwid"><style>.cl-6f0c2240{}.cl-6eebc068{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-6ef8491e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6ef84946{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-6ef88c80{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6ef88c9e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6ef88ca8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-6ef88cb2{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-6f0c2240'><thead><tr style="overflow-wrap:break-word;"><td class="cl-6ef88c80"><p class="cl-6ef8491e"><span class="cl-6eebc068">Name</span></p></td><td class="cl-6ef88c9e"><p class="cl-6ef84946"><span class="cl-6eebc068">Age</span></p></td><td class="cl-6ef88c9e"><p class="cl-6ef84946"><span class="cl-6eebc068">BodyweightKg</span></p></td><td class="cl-6ef88c9e"><p class="cl-6ef84946"><span class="cl-6eebc068">Best3SquatKg</span></p></td><td class="cl-6ef88c9e"><p class="cl-6ef84946"><span class="cl-6eebc068">Best3BenchKg</span></p></td><td class="cl-6ef88c9e"><p class="cl-6ef84946"><span class="cl-6eebc068">Best3DeadliftKg</span></p></td><td class="cl-6ef88c9e"><p class="cl-6ef84946"><span class="cl-6eebc068">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-6ef88ca8"><p class="cl-6ef8491e"><span class="cl-6eebc068">Emil Alin</span></p></td><td class="cl-6ef88cb2"><p class="cl-6ef84946"><span class="cl-6eebc068">81.5</span></p></td><td class="cl-6ef88cb2"><p class="cl-6ef84946"><span class="cl-6eebc068">112.7</span></p></td><td class="cl-6ef88cb2"><p class="cl-6ef84946"><span class="cl-6eebc068">155</span></p></td><td class="cl-6ef88cb2"><p class="cl-6ef84946"><span class="cl-6eebc068">110</span></p></td><td class="cl-6ef88cb2"><p class="cl-6ef84946"><span class="cl-6eebc068">200</span></p></td><td class="cl-6ef88cb2"><p class="cl-6ef84946"><span class="cl-6eebc068">465</span></p></td></tr></tbody></table></div></template>
-<div class="flextable-shadow-host" id="75326bae-5d41-4298-89ce-3a9afd43ab39"></div>
+</style><div class="tabwid"><style>.cl-0d330abe{}.cl-0d246f5e{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-0d2898c2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0d2898f4{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-0d28be92{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0d28beba{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0d28bec4{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-0d28bed8{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class='cl-0d330abe'><thead><tr style="overflow-wrap:break-word;"><td class="cl-0d28be92"><p class="cl-0d2898c2"><span class="cl-0d246f5e">Name</span></p></td><td class="cl-0d28beba"><p class="cl-0d2898f4"><span class="cl-0d246f5e">Age</span></p></td><td class="cl-0d28beba"><p class="cl-0d2898f4"><span class="cl-0d246f5e">BodyweightKg</span></p></td><td class="cl-0d28beba"><p class="cl-0d2898f4"><span class="cl-0d246f5e">Best3SquatKg</span></p></td><td class="cl-0d28beba"><p class="cl-0d2898f4"><span class="cl-0d246f5e">Best3BenchKg</span></p></td><td class="cl-0d28beba"><p class="cl-0d2898f4"><span class="cl-0d246f5e">Best3DeadliftKg</span></p></td><td class="cl-0d28beba"><p class="cl-0d2898f4"><span class="cl-0d246f5e">TotalKg</span></p></td></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-0d28bec4"><p class="cl-0d2898c2"><span class="cl-0d246f5e">Emil Alin</span></p></td><td class="cl-0d28bed8"><p class="cl-0d2898f4"><span class="cl-0d246f5e">81.5</span></p></td><td class="cl-0d28bed8"><p class="cl-0d2898f4"><span class="cl-0d246f5e">112.7</span></p></td><td class="cl-0d28bed8"><p class="cl-0d2898f4"><span class="cl-0d246f5e">155</span></p></td><td class="cl-0d28bed8"><p class="cl-0d2898f4"><span class="cl-0d246f5e">110</span></p></td><td class="cl-0d28bed8"><p class="cl-0d2898f4"><span class="cl-0d246f5e">200</span></p></td><td class="cl-0d28bed8"><p class="cl-0d2898f4"><span class="cl-0d246f5e">465</span></p></td></tr></tbody></table></div></template>
+<div class="flextable-shadow-host" id="ab6069e4-016c-431e-bf01-84b5cb0c7244"></div>
 <script>
-var dest = document.getElementById("75326bae-5d41-4298-89ce-3a9afd43ab39");
-var template = document.getElementById("745f855b-b5d6-47af-bd90-9a6e76a6cd64");
+var dest = document.getElementById("ab6069e4-016c-431e-bf01-84b5cb0c7244");
+var template = document.getElementById("20cdd913-8b71-48cb-ad99-cd4703b501e6");
 var caption = template.content.querySelector("caption");
 var fantome = dest.attachShadow({mode: 'open'});
 var templateContent = template.content;
@@ -2590,9 +2598,9 @@ Show code
 </tbody>
 </table>
 </div>
-<p>As you can see, the strongest competitors in the IPF are from the USA, Russia, and Poland.<br />
-If the strength of the lifter is independent of his/her country, Poland is a surprising result because there are many countries with more competitors than Poland.<br />
-Another surprising result is the percentage of females that compete in Sweden in comparison to Belgium.<br />
+<p><strong>As you can see, the strongest competitors in the IPF are from the USA, Russia, and Poland.</strong><br />
+<strong>If the strength of the lifter is independent of his/her country, Poland is a surprising result because there are many countries with more competitors than Poland.</strong><br />
+<strong>Another surprising result is the percentage of females that compete in Sweden in comparison to Belgium.</strong><br />
 This result is even more surprising when we look at the female percentage in Sweden and Belgium over the years:<br />
 <a href="https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE" class="uri">https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE</a><br />
 Belgium’s female percentage was higher than Sweden’s female percentage from 1960 to 2021.<br />
@@ -2654,8 +2662,8 @@ Show code
 </details>
 <p><img src="powerlifting-analysis-using-r_files/figure-html5/unnamed-chunk-10-1.gif" /><!-- --></p>
 </div>
-<p>In the graph, you can see Charlie’s bench press (in black), squat (in blue), and deadlift (in red).<br />
-What you may find interesting is how the trends in the lifts are very similar.<br />
+<p><strong>In the graph, you can see Charlie’s bench press (in black), squat (in blue), and deadlift (in red).</strong><br />
+<strong>What you may find interesting is how the trends in the lifts are very similar.</strong><br />
 The similar trends can match the ‘chisq test’ in this project, which ultimately found a correlation between squat and bench press success and failure.<br />
 </p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
