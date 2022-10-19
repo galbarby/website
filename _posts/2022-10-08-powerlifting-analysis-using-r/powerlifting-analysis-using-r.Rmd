@@ -1,7 +1,7 @@
 ---
 title: "powerlifting analysis using R"
 description: |
-  bla bla bla.
+  Analyzing powerlifting competitions from ipf federation.
 author:
   - name: Gal Barby
     url: https://example.com/norajones
@@ -86,14 +86,15 @@ in first i ..
 
 # Statistical Analyses
 
-## Bench Press - Squat Ratio Difference Between Male and Female:
+## Bench Press - Squat Ratio Difference Between Male and Female
 The first analysis checks a familiar phenomenon:\
 when males, in general, have stronger bodies than females,\
 The difference is not very significant in terms of the lower body, in comparison to the upper body, where there is a major dissimilarity.\
 The squat is an exercise that ably demonstrates lower body strength and the bench press is an exercise that effectively demonstrates upper body strength.\
 So, in the following analysis, I checked the ratio between the bench press of the males versus females and I compared it to the ratio of the males' and females' squats.\
 I executed the next mathematical transition to make my hypothesis and conclusions more understandable:\
-
+**(SQ - squat)**\
+**(BP - bench press)**
 
 $$
 \hspace{2mm}H_O: \dfrac{maleBP}{femaleBP}<=\dfrac{maleSQ}{femaleSQ}\\
@@ -131,7 +132,7 @@ The result is statistically highly significant and this justifies the alternativ
 \
 \
 
-## Bench Press - Deadlift Ratio:
+## Bench Press - Deadlift Ratio
 
 As we saw, the ratio between two different lifts in one group can be unequal to the ratio of the same lifts in another type of group.\
 Elchonon Brody, one of the best powerlifting coaches in Israel (and thanks to him I held the Israeli record of bench press in my category) proposed the following hypothesis:\
@@ -139,7 +140,9 @@ There is a difference between the ratio of two lifts in different body-weight cl
 The deadlift is a pull exercise, and the bench press is a push exercise.\
 Therefore, there is an importance in the ratio between them for reasons of balance and body health.\
 Consequently, I decided to check the ratio between the deadlift and bench press using the following hypothesis of Elchonon:\
-
+**(DL - dead lift)**\
+**(HW - Heavy body weight class)**\
+**(LW - Low body weight class)**
 
 $$
 H_O: \dfrac{HWBP}{HWDL}<=\dfrac{LWBP}{LWDL}\\
@@ -223,7 +226,7 @@ In addition, I would recommend reducing some load on this competitor's push exer
 Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.\
 
 
-## Good Lift and No Lift Analysis:
+## Good Lift and No Lift Analysis
 The last statistic analysis consists of two analyses.\
 The first one detects if there is the same quantity of "good lift" in each exercise.\
 The second analysis checks if there is a correlation between one lift fail/success and another lift fail/success.\
@@ -303,7 +306,7 @@ On the 'chisq test', I got a statistically significant result.\
 
 # Non-statistical Analyses
 
-## Wilks and Records Analysis:
+## Wilks and Records Analysis
 In the following analysis, you will notice some interesting facts about powerlifting competitions.\
 The first one is the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).\
 The second is the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.\
@@ -346,7 +349,7 @@ flextable(records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>%
 
 
 
-## Differences Between Countries:
+## Differences Between Countries
 To understand this analysis, you must learn an additional term in power lifters' vocabulary, 'Wilks'.\
 The 'Wilks' is a formula that is used to compare lifters in different body weight classes in order to find the strongest lifter while taking into account the lifter's body weight.\
 \
@@ -386,7 +389,7 @@ Therefore, additional factors influence the observed result.\
 \
 
 
-## Competed the Most Amount of Times:
+## Competed the Most Amount of Times
 
 In this final analysis, I found the competitor that competed the most amount of times in the IPF (remember, this data includes only SBD and RAW events).\
 
