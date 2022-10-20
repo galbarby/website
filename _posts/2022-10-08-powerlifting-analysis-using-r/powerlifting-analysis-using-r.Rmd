@@ -201,10 +201,9 @@ In this method, we remove a part of the random errors that affected our estimati
 
 
 ```{r message=FALSE}
-repeated_dat_2 <- repeated_dat %>% filter(!is.na(WeightClassKg),!is.na(BodyweightKg))
-repeated_dat_2 <- repeated_dat_2 %>% mutate(deadlift_bench_ratio=Best3BenchKg/Best3DeadliftKg)
-
-splited_repeated <- repeated_dat_2 %>% distinct(Name,WeightClassKg,.keep_all = T) %>% 
+repeated_dat_bp_dl <- repeated_dat %>% filter(!is.na(WeightClassKg),!is.na(BodyweightKg)) %>% 
+  mutate(deadlift_bench_ratio=Best3BenchKg/Best3DeadliftKg)
+splited_repeated <- repeated_dat_bp_dl %>% distinct(Name,WeightClassKg,.keep_all = T) %>% 
   group_by(Name) %>% filter(n()>1) %>%
   summarize(Name,WeightClassKg,BodyweightKg,deadlift_bench_ratio,n=n()) %>% ungroup() %>% 
   arrange(n,Name,WeightClassKg) %>% group_split(n,.keep = T)
@@ -254,7 +253,10 @@ G_bp <- dat %>% filter(G_bench3==1) %>% nrow()
 G_dl <- dat %>% filter(G_deadlift3==1) %>% nrow()
 pop <- dat %>% nrow()
 precent <- round(c(G_sq/pop,G_bp/pop,G_dl/pop),2)
-writeLines(as.character(precent))
+precent <- precent*100
+precent <- as.character(precent)
+precent <- paste(c("squat:","bench press:","dead lift:"),precent)
+writeLines(c("good lift percentage:",precent))
 my_test4 <- pairwise.prop.test(x = c(G_sq,G_bp,G_dl), n = rep(pop,3), p.adjust.method = "bonferroni")
 pander(my_test4,split.cells = 2)
 ```
@@ -378,9 +380,9 @@ pander(dat %>% filter(Country=="Russia") %>% arrange(desc(Wilks)) %>% slice(1:10
   pull(Wilks) %>% mean())
 #most and least percentages of female competitors
 dat_fem <- dat %>% add_count(Country) %>% filter(n>200)
-dat_fem <- dat_fem %>% group_by(Country) %>% summarise(femlae_precentage=mean(Sex=="F"))
-pander(dat_fem %>% slice_max(femlae_precentage))
-pander(dat_fem %>% slice_min(femlae_precentage))
+dat_fem <- dat_fem %>% group_by(Country) %>% summarise(female_precentage=mean(Sex=="F"))
+pander(dat_fem %>% slice_max(female_precentage))
+pander(dat_fem %>% slice_min(female_precentage))
 
 ```
 
