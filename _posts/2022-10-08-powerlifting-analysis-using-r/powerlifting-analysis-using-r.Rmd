@@ -357,15 +357,6 @@ flextable(records_dat %>% arrange(desc(Age)) %>%
 flextable(records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>% 
   select(Name,Age,BodyweightKg,Best3SquatKg,
          Best3BenchKg,Best3DeadliftKg,TotalKg) %>% slice(1))
-
-
-######################################## check something
-
-kbl(records_dat %>% arrange(desc(Age)) %>%
-  select(Name,Age,BodyweightKg,Best3SquatKg,
-         Best3BenchKg,Best3DeadliftKg,TotalKg) %>% slice(1)) %>% kable_styling(bootstrap_options = c("striped", "hover"))
-
-
 ```
 
 
