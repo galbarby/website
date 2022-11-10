@@ -141,7 +141,7 @@ p1 <- ggplot(dat) +
   xlab("squat - bench press ratio")
 p1 <- p1 +
   scale_color_ft() +
-  labs(title = "Gender SQ-BP ratio Distribution") +
+  labs(title = "Gender SQ-BP Ratio Distribution") +
   theme_ft_rc()
 p1
 ```
@@ -215,7 +215,7 @@ p3a <- ggplot(data=multiple_comparisons_df, aes(x=deadlift_bench_ratio, group=We
     theme_ipsum()
 p3a <- p3a +
   scale_color_ft() +
-  labs(title = "ratio Distribution") +
+  labs(title = "Ratio Distribution") +
   theme_ft_rc()
 
 p3b <- ggplot(multiple_comparisons_df, aes(x=WeightClassKg, y=deadlift_bench_ratio,color=WeightClassKg)) +
@@ -236,7 +236,7 @@ p4 <- ggplot(WeightClass_ratio, aes(x=WeightClassKg,y=ratio)) +
 
 p4 <- p4 +
   scale_color_ft() +
-  labs(title = "Weight Class ratio difference") +
+  labs(title = "Weight Class Ratio difference") +
   theme_ft_rc()
 
 dl_bp_ratio <- multiple_comparisons_df$deadlift_bench_ratio
