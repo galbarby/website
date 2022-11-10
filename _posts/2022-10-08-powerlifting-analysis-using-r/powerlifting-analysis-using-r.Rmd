@@ -31,7 +31,12 @@ After three attempts, the competitors continue to the next lift in the following
 To start, let's load the following libraries:
 
 ```{r message=FALSE, warning=FALSE}
+library(patchwork)
+library(gt)
 library(kableExtra)
+library(ggthemes)
+library(hrbrthemes)
+library(CGPfunctions)
 library(flextable)
 library(pander)
 library(gganimate)
@@ -81,7 +86,13 @@ ipf_data %>% writexl::write_xlsx(path = "the final ipf cleaned data2.xlsx")
 
 </summary>
 
-in first i ..
+**First I chose only the lifters who competed in Raw and SBD events.**
+**Raw events have different characteristics than Equipped events because in Equipped events lifters can lift heavier weights, and that can affect the result of future analyses.**
+**The SBD events contain squat, bench press, and deadlift, while other events can include only one or two lifts, this difference can affect the analyses too.**
+**Then I removed the competitors that were classified as "Mx" gender and "+-" weight class because we need defined terms for these two.**
+**The best lift is defined as the heaviest good lift of the three attempts.** **In some parts of the analysis, we need lifters who have succeeded in at least one attempt of every lift.** **So the following step was to remove the lifters who had nonpositive numbers on the best good lifts.**
+**I could stop here with the observations cleaning but I had a lot of data so I decided to do one more thing so I can get high-quality data, so I removed the lifters who had missing value in at least one attempt.**
+**The last thing that I did was delete unnecessary columns that don't contribute to our data analysis.**
 
 </details>
 
@@ -111,16 +122,28 @@ In addition, the data frame that I used for this analysis is called, "dat", whic
 
 ```{r warning=FALSE}
 repeated_dat <- read_excel("the final ipf cleaned data2.xlsx",guess_max = 20000)
-dat <- repeated_dat %>% distinct(Name, .keep_all = TRUE)
-dat <- dat %>%  mutate(squat_bench_ratio=Best3BenchKg/Best3SquatKg)
-M_sq_bp_ratio <- dat %>% filter(Sex=="M") %>% pull(squat_bench_ratio)
-F_sq_bp_ratio <- dat %>% filter(Sex=="F") %>% pull(squat_bench_ratio)
+dat <- repeated_dat %>%
+  distinct(Name, .keep_all = TRUE)
+dat <- dat %>%  
+  mutate(squat_bench_ratio=Best3BenchKg/Best3SquatKg)
+M_sq_bp_ratio <- dat %>%
+  filter(Sex=="M") %>%
+  pull(squat_bench_ratio)
+F_sq_bp_ratio <- dat %>%
+  filter(Sex=="F") %>%
+  pull(squat_bench_ratio)
 sq_bp_test <- t.test(M_sq_bp_ratio,F_sq_bp_ratio)
 pander(sq_bp_test,split.cells = 2)
-ggplot(dat) + 
-  geom_density(aes(x=squat_bench_ratio, colour=Sex, fill=Sex), alpha=0.5) + 
+
+p1 <- ggplot(dat) +
+  geom_density(aes(x=squat_bench_ratio, colour=Sex, fill=Sex), alpha=0.6) +
   xlim(0,1.5) +
   xlab("squat - bench press ratio")
+p1 <- p1 +
+  scale_color_ft() +
+  labs(title = "Gender SQ-BP ratio Distribution") +
+  theme_ft_rc()
+p1
 ```
 
 **The essence of the result is as follows:**\
@@ -159,34 +182,115 @@ In addition, I analyzed which class has the most competitors, and then I picked 
 
 
 ```{r warning=FALSE}
-dat <- dat %>% mutate(deadlift_bench_ratio=Best3BenchKg/Best3DeadliftKg)
-pander(dat %>% filter(Sex=="M") %>% count(WeightClassKg) %>% arrange(desc(n)) %>% slice(1:10))
-categories <- c("53","59","66","93","120+")
-multiple_comparisons_df <- dat %>% filter(WeightClassKg %in% categories,Sex=="M")
-multiple_comparisons_df$WeightClassKg <- 
+dat <- dat %>%
+  mutate(deadlift_bench_ratio=Best3BenchKg/Best3DeadliftKg)
+WeightClass_n <- dat %>%
+  filter(Sex=="M") %>%
+  count(WeightClassKg) %>%
+  arrange(desc(n)) %>%
+  slice(1:10)
+WeightClass_n <- WeightClass_n[-7,] %>%
+  arrange(as.numeric(WeightClassKg)) %>%
+  bind_rows(WeightClass_n[7,])
+WeightClass_n$WeightClassKg <- reorder.factor(WeightClass_n$WeightClassKg, new.order=WeightClass_n$WeightClassKg)
+
+p2 <- ggplot(WeightClass_n, aes(x=WeightClassKg,y=n)) +
+  geom_bar(stat="identity",fill="steelblue")+
+  geom_text(aes(label=n), vjust=-0.3, size=3.5) +
+  xlab("weight class") + ylab("count") + ylim(c(0,18000))
+p2 <- p2 +
+  scale_color_ft() +
+  labs(title = "Weight Class Distribution") +
+  theme_ft_rc()
+
+categories <- c("53","66","83","105","120+")
+multiple_comparisons_df <- dat %>%
+  filter(WeightClassKg %in% categories,Sex=="M")
+multiple_comparisons_df$WeightClassKg <-
   reorder.factor(multiple_comparisons_df$WeightClassKg, new.order=categories)
-ggplot(multiple_comparisons_df) + 
-  geom_density(aes(x=deadlift_bench_ratio, colour=WeightClassKg, fill=WeightClassKg),
-               alpha=0.5) + xlim(0,1.5) + xlab("deadlift - bench press ratio")
-pander(multiple_comparisons_df %>% group_by(WeightClassKg) %>% 
-        summarise(ratio=mean(deadlift_bench_ratio)))
+
+p3a <- ggplot(data=multiple_comparisons_df, aes(x=deadlift_bench_ratio, group=WeightClassKg, fill=WeightClassKg)) +
+    geom_density(adjust=1.5, alpha=0.65) +
+    xlim(0.2,1.1) + xlab("deadlift-bench press ratio") +
+    theme_ipsum()
+p3a <- p3a +
+  scale_color_ft() +
+  labs(title = "ratio Distribution") +
+  theme_ft_rc()
+
+p3b <- ggplot(multiple_comparisons_df, aes(x=WeightClassKg, y=deadlift_bench_ratio,color=WeightClassKg)) +
+  geom_boxplot() + scale_y_continuous(limits = quantile(multiple_comparisons_df$deadlift_bench_ratio, c(0.1, 0.9))) + coord_cartesian(ylim = quantile(multiple_comparisons_df$deadlift_bench_ratio, c(0.1, 0.9))) + xlab("weight class") + ylab("bench press-deadlift ratio")
+
+p3b <- p3b +
+  theme_ft_rc()
+
+WeightClass_ratio <- multiple_comparisons_df %>%
+  group_by(WeightClassKg) %>%
+  summarise(ratio=mean(deadlift_bench_ratio))
+WeightClass_ratio$ratio <- round(WeightClass_ratio$ratio,3)
+
+p4 <- ggplot(WeightClass_ratio, aes(x=WeightClassKg,y=ratio)) +
+  geom_bar(stat="identity",fill="steelblue",width = 0.55)+
+  geom_text(aes(label=ratio), vjust=1.6,color="black", size=3.5) +
+  xlab("weight class") + ylab("average deadlift-bench press ratio")
+
+p4 <- p4 +
+  scale_color_ft() +
+  labs(title = "Weight Class ratio difference") +
+  theme_ft_rc()
+
 dl_bp_ratio <- multiple_comparisons_df$deadlift_bench_ratio
 wc_kg <- multiple_comparisons_df$WeightClassKg
 dl_bp_test <- pairwise.t.test(dl_bp_ratio,wc_kg,p.adjust.method="bonferroni")
-pander(dl_bp_test,split.cells = 2)
-
+dl_bp_test_df <- dl_bp_test$p.value
+dl_bp_test_df[which(dl_bp_test_df<2e-16)] <- "<2e-16"
 ```
 
 
-**As you can see, the bench press weight of the lightest weight class is 50.7% of the weight of their deadlift.**\
+**The next bar chart shows the weight class distribution**:\
+
+```{r warning=FALSE}
+p2
+```
+
+
+**In the following graphs, you can see the bench press-deadlift ratio distribution in the various weight classes, and the ratio of each weight class in box plots:**\
+
+```{r warning=FALSE}
+p3a
+p3b
+```
+
+
+**In the following bar chart, you can see the average bench press-deadlift ratio of each weight class (from the chosen weight classes):**\
+
+
+```{r warning=FALSE}
+p4
+```
+
+**The following table shows the pairwise t-test:**\
+
+```{r warning=FALSE}
+kbl(dl_bp_test_df) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  add_header_above(c(" ", "pairwise t-test with bonferroni method" = 4))
+```
+
+
+**As you can see, on average, the bench press weight of the lightest weight class is 50.8% of the weight of their deadlift.**\
 **You can see that when the weight class increases, the percentage goes up too.**\
 **In addition, every pairwise comparison is statistically highly significant.**\
 
+
 ### difference between the same competitors:
 
-The previous analysis is not enough to give suggestions, because each group has individual characteristics that can affect this result.\
 
 **($BD_{ratio}$ - bench press - deadlift ratio)**
+
+
+**The next analysis is the main analysis of this project** because it can give real discoveries.
+The previous analysis was not enough to give suggestions, because each group has individual characteristics that can affect the result:
 
 
 $$
@@ -199,18 +303,26 @@ The solution that I came up with is to use the "repeated data" (the data frame w
 With this data frame, I can include competitors that compete in more than one body-weight class and by that solve the consistency problem.\
 These competitors have several fixed characteristics that we can lose when we execute a paired 't test'.\
 In this method, we remove a part of the random errors that affected our estimation.
-
+**So the following analysis tests the difference between the bench press-deadlift ratio in two different body weight classes of the same competitor, and that can be done thanks to the "repeated data".**\
 
 ```{r message=FALSE}
-repeated_dat_bp_dl <- repeated_dat %>% filter(!is.na(WeightClassKg),!is.na(BodyweightKg)) %>% 
+repeated_dat_bp_dl <- repeated_dat %>%
+  filter(!is.na(WeightClassKg),!is.na(BodyweightKg)) %>%
   mutate(deadlift_bench_ratio=Best3BenchKg/Best3DeadliftKg)
-splited_repeated <- repeated_dat_bp_dl %>% distinct(Name,WeightClassKg,.keep_all = T) %>% 
-  group_by(Name) %>% filter(n()>1) %>%
-  summarize(Name,WeightClassKg,BodyweightKg,deadlift_bench_ratio,n=n()) %>% ungroup() %>% 
-  arrange(n,Name,WeightClassKg) %>% group_split(n,.keep = T)
+
+splited_repeated <- repeated_dat_bp_dl %>%
+  distinct(Name,WeightClassKg,.keep_all = T) %>%
+  group_by(Name) %>%
+  filter(n()>1) %>%
+  summarize(Name,WeightClassKg,BodyweightKg,deadlift_bench_ratio,n=n()) %>%
+  ungroup() %>%
+  arrange(n,Name,WeightClassKg) %>%
+  group_split(n,.keep = T)
 
 make_pairs <- function(data){
-  n <- data %>% pull(n) %>% unique()
+  n <- data %>%
+    pull(n) %>%
+    unique()
   pair_1 <- data[seq(1,nrow(data),by=n),]
   pair_2 <- data[seq(n,nrow(data),by=n),]
   return(bind_rows(pair_1,pair_2) %>% arrange(Name,BodyweightKg))
@@ -218,18 +330,33 @@ make_pairs <- function(data){
 
 pairs_list <- lapply(splited_repeated,make_pairs)
 pairs_dat <- bind_rows(pairs_list)
-weights_vec <- pairs_dat %>% pull(deadlift_bench_ratio)
+weights_vec <- pairs_dat %>%
+  pull(deadlift_bench_ratio)
 heavier_weight <- weights_vec[seq(2,length(weights_vec),by=2)]
 lower_weight <- weights_vec[seq(1,length(weights_vec),by=2)]
 pair_test <- t.test(x = heavier_weight,y=lower_weight,paired = T)
 pander(pair_test,split.cells = 2)
-
 ```
 
-Now, it is easier for me to suggest some things.\
-For example, for an individual who has shoulder pain that is caused by stronger push muscles than pull muscles, I will suggest considering this analysis.\
-In addition, I would recommend reducing some load on this competitor's push exercise and to lose body weight.\
-**Despite my recommendation to lose weight, I must note weight loss reduces the ratio between deadlift and bench press only by 1.1%.**\
+**Now, it is easier for me to suggest some things.**\
+**For example, for an individual who has shoulder pain that is caused by stronger push muscles than pull muscles, I will suggest considering this analysis.**\
+**In addition, I would recommend reducing some load on this competitor's push exercise and to lose body weight.**\
+<u> **Despite my recommendation to lose weight, I must note weight loss reduces the ratio between bench press and deadlift only by 1.1%.** </u>
+
+<details>
+
+<summary>
+
+*code explanation*
+
+</summary>
+
+**First I removed the competitors that have missing value in bodyweight class or body weight.**
+**The next step was to keep the competitors that compete in more than one bodyweight class, and split the competitors by the number of the different bodyweight classes that they competed in.**
+**Then, I used the make_pairs function that I created which takes only two competitions for every competitor.**
+**Eventually, I used the pairs that I collected, and test the deadlift-bench press ratio of every pair with paired t-test.**
+
+</details>
 
 
 ## Good Lift and No Lift Analysis
@@ -243,23 +370,34 @@ In the second analysis, I analyzed the correlation between the squat and the ben
 
 ```{r warning=FALSE}
 #prop test squat3 bench3 and deadlift3 no lift
-dat <- dat %>% mutate(G_squat3 = case_when(Squat3Kg>0 ~ 1,
+dat <- dat %>%
+  mutate(G_squat3 = case_when(Squat3Kg>0 ~ 1,
                                           TRUE ~ 0),
-                        G_bench3 = case_when(Bench3Kg>0 ~ 1,
+         G_bench3 = case_when(Bench3Kg>0 ~ 1,
                                           TRUE ~ 0),
-                        G_deadlift3 = case_when(Deadlift3Kg>0 ~ 1,
+         G_deadlift3 = case_when(Deadlift3Kg>0 ~ 1,
                                           TRUE ~ 0))
-G_sq <- dat %>% filter(G_squat3==1) %>% nrow()
-G_bp <- dat %>% filter(G_bench3==1) %>% nrow()
-G_dl <- dat %>% filter(G_deadlift3==1) %>% nrow()
-pop <- dat %>% nrow()
-precent <- round(c(G_sq/pop,G_bp/pop,G_dl/pop),2)
-precent <- precent*100
-precent <- as.character(precent)
-precent <- paste(c("squat:","bench press:","dead lift:"),precent)
-writeLines(c("good lift percentage:",precent))
-my_test4 <- pairwise.prop.test(x = c(G_sq,G_bp,G_dl), n = rep(pop,3), p.adjust.method = "bonferroni")
-pander(my_test4,split.cells = 2)
+G_sq <- dat %>%
+  filter(G_squat3==1) %>% nrow()
+G_bp <- dat %>%
+  filter(G_bench3==1) %>% nrow()
+G_dl <- dat %>%
+  filter(G_deadlift3==1) %>% nrow()
+pop <- nrow(dat)
+percent <- round(c(G_sq/pop,G_bp/pop,G_dl/pop),2)
+percent <- percent*100
+percent <- as.character(percent)
+percent <- paste(c("squat:","bench press:","dead lift:"),percent)
+writeLines(c("good lift percentage:",percent))
+good_lifts_pt <- pairwise.prop.test(x = c(G_sq,G_bp,G_dl), n = rep(pop,3), p.adjust.method = "bonferroni")
+good_lifts_pt_df <- good_lifts_pt$p.value
+good_lifts_pt_df[which(good_lifts_pt_df<2e-16)] <- "<2e-16"
+colnames(good_lifts_pt_df) <- c("squat good lifts proportion","bench press good lifts proportion")
+row.names(good_lifts_pt_df) <- c("bench press good lifts proportion","dead lift good lifts proportion")
+kbl(good_lifts_pt_df) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  add_header_above(c(" ", "Pairwise comparison of proportions" = 2))
+
 ```
 
 
@@ -276,19 +414,22 @@ The meaning of this result is that even the 2% difference between squat and dead
 
 ```{r}
 #chisq test no lift squat and bench
-my_test5 <- chisq.test(dat$G_squat3,dat$G_bench3,correct = F)
-pander(my_test5,split.cells = 2)
-
-obs11 <- dat %>% filter(G_bench3==1,G_squat3==1) %>% nrow()/pop
-obs10 <- dat %>% filter(G_bench3==1,G_squat3==0) %>% nrow()/pop
-obs01 <- dat %>% filter(G_bench3==0,G_squat3==1) %>% nrow()/pop
-obs00 <- dat %>% filter(G_bench3==0,G_squat3==0) %>% nrow()/pop
+good_lifts_ct <- chisq.test(dat$G_squat3,dat$G_bench3,correct = F)
+pander(good_lifts_ct,split.cells = 2)
+obs11 <- dat %>%
+  filter(G_bench3==1,G_squat3==1) %>% nrow()/pop
+obs10 <- dat %>%
+  filter(G_bench3==1,G_squat3==0) %>% nrow()/pop
+obs01 <- dat %>%
+  filter(G_bench3==0,G_squat3==1) %>% nrow()/pop
+obs00 <- dat %>%
+  filter(G_bench3==0,G_squat3==0) %>% nrow()/pop
 
 exp11 <- (as.numeric(G_bp)*as.numeric(G_sq))/(pop^2)
 exp10 <- (G_bp*(dat %>% filter(G_squat3==0) %>% nrow))/(pop^2)
-exp01 <- 
+exp01 <-
   (as.numeric(dat %>% filter(G_bench3==0) %>% nrow)*G_sq)/(pop^2)
-exp00 <- 
+exp00 <-
   ((dat %>% filter(G_bench3==0) %>% nrow)*(dat %>% filter(G_squat3==0) %>% nrow))/(pop^2)
 df <- data.frame(
   group=c("11","10","01","00","11","10","01","00"),
@@ -296,105 +437,222 @@ df <- data.frame(
   type=c(rep("observed",4),rep("expected",4))
 )
 
-p <- ggplot(df, aes(x="", y=value, fill=group)) +
-  geom_bar(stat="identity", width=1, color="white") + 
-  geom_text(aes(label = round(value,4)),
-            position = position_stack(vjust = 0.5)) +
-  coord_polar("y", start=0) + theme_void() + facet_wrap(~type)
-p
+df$value <- round(df$value,3)
+newggslopegraph(df, type, value, group,
+                Title = "expected versus observed",
+                SubTitle = "",
+                Caption = "",
+                YTextSize = 3,
+                DataTextSize = 3.5,
+                DataLabelPadding = 0.15,
+                DataLabelLineSize = 0.7,
+                DataLabelFillColor = "lightblue",
+                LineThickness = 1.25) + theme_minimal() +
+  theme(legend.position = "none")
 ```
 
-**I will explain the second analysis via the pie chart:**\
-**On the right side you can see the group splitting, the left number refers to bench press and the right number refers to squat.**\
+**I will explain the second analysis via the slope graph:**\
+**On the sides you can see the group splitting, the left number refers to bench press and the right number refers to squat.**\
 **For example, '01' (the color green) means "no lift" for bench press, and "good lift" for squat.**\
 The left pie chart shows the expected values of each option (the result that was expected if there is no correlation between the lifts).\
 The right pie chart shows the real values that I received (the observed values).\
-**As you can see the '00' and '11' groups received a bigger part on the observed chart, while the '01' and '10' got a smaller part on the observed chart.**\
+**As you can see the '00' and '11' groups received a bigger part on the observed column, while the '01' and '10' got a smaller part on the observed column.**\
 **So, the squat and the bench press get the same value 52.68% of the time ("good lift"+"no lift").**\
 **While on the expected option (the option that there is no correlation between them) they get the same value only 48.6% of the time.**\
 In addition to the intuitive explanation, you can see the 'chisq test' before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.\
 On the 'chisq test', I got a statistically significant result.\
 
+
 # Non-statistical Analyses
 
 ## Wilks and Records Analysis
 In the following analysis, you will notice some interesting facts about powerlifting competitions.\
-First of all, I presented the distribution of the age class from the age class with the least competitors to the age class with the most competitors.\
-The first analysis shows the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category).\
-The second analysis shows the oldest record in IPF, with more than 1,000 competitors who compete in the specific category.\
-The third analysis shows the oldest competitor that ever competed on the IPF.\
-You can see the impressive weight he lifted as well.\
-The fourth analysis shows the heaviest total that a competitor 80 years old or more lifted in a competition.\
-This might give you quite a lot of motivation.\
 
-**(When you see 80-999 age group the meaning is age group with no limit)**
+```{r warning=FALSE}
+#age distribution
+Age_data_frame <- repeated_dat %>%
+  filter(!is.na(AgeClass)) %>%
+  distinct(Name,AgeClass,.keep_all = T) %>%
+  count(AgeClass)
+age_char <- Age_data_frame$AgeClass %>%
+  strsplit("-") %>%
+  unlist() %>%
+  as.numeric() %>%
+  sort() %>%
+  as.character()
+age_factor <- rep(NA,length(age_char)/2)
+for (i in 1:length(age_factor)){
+  j <- ceiling(i*2)
+  age_factor[i] <- paste(c(age_char[j-1]),age_char[j],sep = "-")
+}
+Age_data_frame$AgeClass <- reorder.factor(Age_data_frame$AgeClass, new.order=age_factor)
+
+p5 <- ggplot(Age_data_frame, aes(x=AgeClass,y=n)) +
+  geom_bar(stat="identity",fill="steelblue")+
+  geom_text(aes(label=n), vjust=-0.3, size=3.5) +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
+  xlab("Age class") + ylab("count") + ylim(c(0,40000))
+
+p5 <- p5 +
+  scale_color_ft() +
+  labs(title = "Age Distribution") +
+  theme_ft_rc()
+
+
+## records analysis
+records_dat <- repeated_dat %>%
+  filter(!is.na(AgeClass),!is.na(WeightClassKg),
+                                       !is.na(TotalKg))
+#oldest_record
+oldest_record <- records_dat %>%
+  add_count(Sex,AgeClass,WeightClassKg) %>%
+  group_by(Sex,AgeClass,WeightClassKg) %>%
+  slice_max(TotalKg) %>%
+  select(Sex,AgeClass,WeightClassKg,Name,Date,TotalKg) %>%
+  arrange(Date)
+
+# oldest record with more than 1000 competitors
+oldest_record1000 <- records_dat %>%
+  add_count(Sex,AgeClass,WeightClassKg) %>%
+  filter(n>1000) %>%
+  group_by(Sex,AgeClass,WeightClassKg) %>%
+  slice_max(TotalKg) %>%
+  select(Sex,AgeClass,WeightClassKg,Name,Date,TotalKg) %>%
+  arrange(Date)
+
+# the oldest competitor
+oldest_competitor <- records_dat %>% arrange(desc(Age)) %>%
+  select(Name,Age,BodyweightKg,Best3SquatKg,
+         Best3BenchKg,Best3DeadliftKg,TotalKg) %>%
+  slice(1)
+# the heaviest total in 80 or more age group
+strongest_old <- records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>%
+  select(Name,Age,BodyweightKg,Best3SquatKg,
+         Best3BenchKg,Best3DeadliftKg,TotalKg) %>%
+  slice(1)
+```
+
+**First of all, I will present the distribution of the age class from the youngest to the oldest (the 80-999 age group means no age limit):**
+
+```{r warning=FALSE}
+p5
+```
+
+**The first analysis shows the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category):**\
 
 ```{r}
-## records analysis
-records_dat <- repeated_dat %>% filter(!is.na(AgeClass),!is.na(WeightClassKg),
-                                       !is.na(TotalKg))
-#oldest record
-oldest_record <- records_dat %>% add_count(Sex,AgeClass,WeightClassKg) %>% 
-  group_by(Sex,AgeClass,WeightClassKg) %>% slice_max(TotalKg) %>% 
-  select(Sex,AgeClass,WeightClassKg,Name,Date,TotalKg) %>% arrange(Date)
-flextable(oldest_record %>% ungroup() %>% slice(1))
-#oldest record with more than 1000 competitors
-oldest_record1000 <- records_dat %>% add_count(Sex,AgeClass,WeightClassKg) %>% 
-  filter(n>1000) %>% 
-  group_by(Sex,AgeClass,WeightClassKg) %>% slice_max(TotalKg) %>% 
-  select(Sex,AgeClass,WeightClassKg,Name,Date,TotalKg) %>% arrange(Date)
-flextable(oldest_record1000 %>% ungroup() %>% slice(1))
-#age distribution
-Age_count <- dat %>% filter(!is.na(AgeClass))
-Age_count <- Age_count %>% count(AgeClass)
-ggplot(Age_count,aes(x=reorder(AgeClass,desc(n)),y=n)) + geom_bar(stat='identity') +
-  coord_flip() + xlab("Age class") + ylab("count")
-# the oldest competitor
-flextable(records_dat %>% arrange(desc(Age)) %>% 
-  select(Name,Age,BodyweightKg,Best3SquatKg,
-         Best3BenchKg,Best3DeadliftKg,TotalKg) %>% slice(1))
-# the heaviest total in 80 or more age group
-flextable(records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>% 
-  select(Name,Age,BodyweightKg,Best3SquatKg,
-         Best3BenchKg,Best3DeadliftKg,TotalKg) %>% slice(1))
+oldest_record %>%
+  ungroup() %>%
+  slice(1) %>%
+  gt()
 ```
+
+**The second analysis shows the oldest record in IPF, with more than 1,000 competitors who compete in the specific category:**\
+
+```{r}
+oldest_record1000 %>%
+  ungroup() %>%
+  slice(1) %>%
+  gt()
+```
+
+**The third analysis shows the oldest competitor that ever competed on the IPF:**\
+
+```{r}
+gt(oldest_competitor)
+```
+
+**The fourth analysis shows the heaviest total that a competitor 80 years old or more lifted in a competition:**\
+
+```{r}
+gt(strongest_old)
+```
+
 
 
 
 ## Differences Between Countries
+
 To understand this analysis, you must learn an additional term in power lifters' vocabulary, 'Wilks'.\
 The 'Wilks' is a formula that is used to compare lifters in different body weight classes in order to find the strongest lifter while taking into account the lifter's body weight.\
-\
-First of all, I presented the countries that have the most amount of lifters.\
-The first analysis takes the lifters that get the highest Wilks score, and checks from which countries they originated from.\
-The second analysis compares the average of the ten highest Wilks scores in the USA vs. Russia.\
-The third analysis shows the countries with the most and the least percentages of female competitors (when taking only into consideration countries with more than 200 competitors).\
 
-```{r}
-pander(dat %>% filter(!is.na(Country)) %>% count(Country) %>% arrange(desc(n)) %>% head())
-# strongest competitors
-writeLines(dat %>% arrange(desc(Wilks)) %>% slice(1:5) %>% pull(Country) %>% unique())
-#USA vs Russia
-pander(dat %>% filter(Country=="USA") %>% arrange(desc(Wilks)) %>% slice(1:10) %>% 
-  pull(Wilks) %>% mean())
-pander(dat %>% filter(Country=="Russia") %>% arrange(desc(Wilks)) %>% slice(1:10) %>% 
-  pull(Wilks) %>% mean())
+```{r warning=FALSE}
+countries_competitors <- dat %>%
+  filter(!is.na(Country)) %>%
+  count(Country) %>%
+  arrange(desc(n)) %>%
+  head(10)
+
+p6 <- ggplot(data=countries_competitors, aes(x=reorder(Country,desc(n)),y=n)) + geom_bar(stat="identity", fill="steelblue")+
+  geom_text(aes(label=n), vjust=-0.3, size=3.5) +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
+  ylim(c(0,50000))  + xlab("country") + ylab("count")
+
+p6 <- p6 +
+  scale_color_ft() +
+  labs(title = "Competitors Per Country") +
+  theme_ft_rc()
+
+strongest_five <- dat %>%
+  arrange(desc(Wilks)) %>%
+  slice(1:5) %>%
+  select(Country,Wilks)
+
 #most and least percentages of female competitors
-dat_fem <- dat %>% add_count(Country) %>% filter(n>200)
-dat_fem <- dat_fem %>% group_by(Country) %>% summarise(female_precentage=mean(Sex=="F"))
-pander(dat_fem %>% slice_max(female_precentage))
-pander(dat_fem %>% slice_min(female_precentage))
+dat_fem <- dat %>%
+  add_count(Country) %>%
+  filter(n>200)
+dat_fem <- dat_fem %>%
+  group_by(Country) %>%
+  summarise(female_precentage=mean(Sex=="F"))
+min_max <- dat_fem %>%
+  filter(female_precentage%in%
+                     c(min(dat_fem$female_precentage),
+                       max(dat_fem$female_precentage)))
+min_max$female_precentage <- round(min_max$female_precentage,2)
+
+
+p7 <- ggplot(data=min_max, aes(x=Country, y=female_precentage)) + geom_bar(stat="identity",fill="steelblue",width = 0.3) +
+  geom_text(aes(label=female_precentage), vjust=1.6,
+            color="black", size=3.5)  + xlab("country") + ylab("proportion")
+p7 <- p7 +
+  scale_color_ft() +
+  labs(title = "Female Percentage") +
+  theme_ft_rc()
 
 ```
 
-**As you can see, the strongest competitors in the IPF are from the USA, Russia, and Poland.**\
-**If the strength of the lifter is independent of his/her country, Poland is a surprising result because there are many countries with more competitors than Poland.**\
-**Another surprising result is the percentage of females that compete in Sweden in comparison to Belgium.**\
-This result is even more surprising when we look at the female percentage in Sweden and Belgium over the years:\
-https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE \
-Belgium's female percentage was higher than Sweden's female percentage from 1960 to 2021.\
+**First of all, I presented the countries that had the most amount of lifters:**
+
+```{r warning=FALSE}
+p6
+```
+
+**The first analysis takes the lifters that get the highest Wilks score, and checks from which countries they originated from:**\
+
+```{r}
+gt(strongest_five)
+```
+
+**As you can see, the strongest competitors in the IPF are from the USA, Russia, and Poland.**
+**If the strength of the lifter is independent of his/her country, Russia and Poland are surprising results because there are some countries with more competitors than this two.**
+/
+/
+**The second analysis shows the countries with the most and the least percentages of female competitors (when taking only into consideration countries with more than 200 competitors).**
+
+
+```{r warning=FALSE}
+p7
+```
+
+
+This result is very interesting because the difference is quite big.\
+So I decided to check some factors that can relate to the outcome.\
+I by checking the female percentage in Sweden and Belgium over the years and I was even more surprised.\
+[Female percentage in Sweden and Belgium](https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE)
+In this link you can see that Belgium's female percentage was higher than Sweden's female percentage from 1960 to 2021.\
 However, Sweden has a higher score on 'Gender Equality Index' in every year that exists in the following link:\
-https://eige.europa.eu/gender-equality-index/2021/compare-countries/index/bar \
+[Gender Equality Index](https://eige.europa.eu/gender-equality-index/2021/compare-countries/index/bar)
 Those who are interested in this difference can request from me more analyses on the females' percentage in IPF.\
 These two factors I mentioned do not suffice. Another analysis can detect countries with a lower female percentage and a lower score on the 'Gender Equality Index' in comparison to Belgium. Nevertheless, Belgium is the country with the lowest female percentage in IPF.\
 Therefore, additional factors influence the observed result.\
@@ -406,12 +664,18 @@ Therefore, additional factors influence the observed result.\
 In this final analysis, I found the competitor that competed the most amount of times in the IPF (remember, this data includes only SBD and RAW events).\
 
 ```{r message=FALSE}
-pander(repeated_dat %>% count(Name) %>% arrange(desc(n)) %>% slice(1))
-Charlie_progress <- repeated_dat %>% filter(Name=="Charlie Chester") %>% arrange(Date) %>% 
+repeated_dat %>%
+  count(Name) %>%
+  arrange(desc(n)) %>%
+  slice(1) %>%
+  pander()
+Charlie_progress <- repeated_dat %>%
+  filter(Name=="Charlie Chester") %>%
+  arrange(Date) %>%
   select(Date,Best3SquatKg,Best3BenchKg,Best3DeadliftKg,TotalKg)
 Charlie_progress <- mutate(Charlie_progress, Date= as.Date(Date))
-Charlie_plot <- ggplot(Charlie_progress, aes(x=Date)) + 
-  geom_line(aes(y = Best3SquatKg), color = "blue") + 
+Charlie_plot <- ggplot(Charlie_progress, aes(x=Date)) +
+  geom_line(aes(y = Best3SquatKg), color = "blue") +
   geom_line(aes(y = Best3BenchKg), color="black") +
   geom_line(aes(y = Best3DeadliftKg), color="red") +
   transition_reveal(Date) +
