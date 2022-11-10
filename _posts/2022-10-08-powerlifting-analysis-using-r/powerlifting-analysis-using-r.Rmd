@@ -404,7 +404,6 @@ kbl(good_lifts_pt_df) %>%
 **The first analysis found that on average, the percentage of the "good lift" on the third attempt is:**\
 **squat - 67%, bench press - 46%, deadlift - 65%.**\
 With the Bonferroni method, I found that the difference between every lift is statistically highly significant.\
-(In part of the table, you can see a p-value that is equal to zero, that's because it is too low).\
 The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of "good lift" is equal between squat and deadlift.\
 **One interesting thing I found that powerlifters can use from this analysis, is the low proportion of "good lift" in the bench press.**\
 **On average, there is more "no lift" than "good lift" in the third attempt, so powerlifters should take into account this result and plan the bench press attempts accordingly.**\
@@ -454,11 +453,11 @@ newggslopegraph(df, type, value, group,
 **I will explain the second analysis via the slope graph:**\
 **On the sides you can see the group splitting, the left number refers to bench press and the right number refers to squat.**\
 **For example, '01' (the color green) means "no lift" for bench press, and "good lift" for squat.**\
-The left pie chart shows the expected values of each option (the result that was expected if there is no correlation between the lifts).\
-The right pie chart shows the real values that I received (the observed values).\
+The left column shows the expected values of each option (the result that was expected if there is no correlation between the lifts).\
+The right column shows the real values that I received (the observed values).\
 **As you can see the '00' and '11' groups received a bigger part on the observed column, while the '01' and '10' got a smaller part on the observed column.**\
-**So, the squat and the bench press get the same value 52.68% of the time ("good lift"+"no lift").**\
-**While on the expected option (the option that there is no correlation between them) they get the same value only 48.6% of the time.**\
+**So, the squat and the bench press get the same value 52% of the time ("good lift"+"no lift").**\
+**While on the expected option (the option that there is no correlation between them) they get the same value only 47% of the time.**\
 In addition to the intuitive explanation, you can see the 'chisq test' before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.\
 On the 'chisq test', I got a statistically significant result.\
 
