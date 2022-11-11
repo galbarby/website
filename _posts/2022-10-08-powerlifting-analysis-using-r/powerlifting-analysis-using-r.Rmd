@@ -442,8 +442,8 @@ newggslopegraph(df, type, value, group,
                 SubTitle = "",
                 Caption = "",
                 YTextSize = 3,
-                DataTextSize = 3.5,
-                DataLabelPadding = 0.15,
+                DataTextSize = 3,
+                DataLabelPadding = 0.1,
                 DataLabelLineSize = 0.7,
                 DataLabelFillColor = "lightblue",
                 LineThickness = 1.25) + theme_minimal() +
@@ -468,6 +468,30 @@ On the 'chisq test', I got a statistically significant result.\
 In the following analysis, you will notice some interesting facts about powerlifting competitions.\
 
 ```{r warning=FALSE}
+k_func <- function(n){
+  n_k <- numeric(length(n))
+  for (i in 1:length(n)){
+    if (n[i]<1000)
+      n_k[i] <- n[i]
+    else if (n[i]<10000){
+      n_2 <- n[i]/1000
+      if (as.numeric(substr(as.character(n_2),1,3))==floor(n_2)){
+        n_2 <- as.character(floor(n_2))
+        n_k[i] <- paste(n_2,"K",sep = "")
+      }
+      else{
+        n_2 <- substr(as.character(n_2),1,3)
+        n_k[i] <- paste(n_2,"K",sep = "")
+      }
+    }
+    else{
+      n_2 <- as.character(floor(n[i]/1000))
+      n_k[i] <- paste(n_2,"K",sep = "")
+    }
+  }
+  return(n_k)
+}
+
 #age distribution
 Age_data_frame <- repeated_dat %>%
   filter(!is.na(AgeClass)) %>%
@@ -488,7 +512,7 @@ Age_data_frame$AgeClass <- reorder.factor(Age_data_frame$AgeClass, new.order=age
 
 p5 <- ggplot(Age_data_frame, aes(x=AgeClass,y=n)) +
   geom_bar(stat="identity",fill="steelblue")+
-  geom_text(aes(label=n), vjust=-0.3, size=3.5) +
+  geom_text(aes(label=k_func(n)), vjust=-0.3, size=3.5) +
   scale_x_discrete(guide = guide_axis(angle = 90)) +
   xlab("Age class") + ylab("count") + ylim(c(0,40000))
 
@@ -690,7 +714,8 @@ Charlie_plot <- ggplot(Charlie_progress, aes(x=Date)) +
   geom_line(aes(y = Best3BenchKg), color="black") +
   geom_line(aes(y = Best3DeadliftKg), color="red") +
   transition_reveal(Date) +
-  labs(title = 'Competition : {frame_time}')
+  labs(title = "Charlie's competitions") +
+  ylab("best attempts")
 animate(
   plot = Charlie_plot,
   render = gifski_renderer())
