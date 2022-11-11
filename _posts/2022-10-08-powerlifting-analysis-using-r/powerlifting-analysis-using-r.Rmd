@@ -699,11 +699,13 @@ Therefore, additional factors influence the observed result.\
 In this final analysis, I found the competitor that competed the most amount of times in the IPF (remember, this data includes only SBD and RAW events).\
 
 ```{r message=FALSE}
-repeated_dat %>%
-  count(Name) %>%
-  arrange(desc(n)) %>%
-  slice(1) %>%
-  pander()
+most_times <- repeated_dat %>% 
+  count(Name) %>% 
+  arrange(desc(n)) %>% 
+  slice(1)
+colnames(most_times)[2] <- "number of competitions"
+pander(most_times)
+
 Charlie_progress <- repeated_dat %>%
   filter(Name=="Charlie Chester") %>%
   arrange(Date) %>%
@@ -719,6 +721,10 @@ Charlie_plot <- ggplot(Charlie_progress, aes(x=Date)) +
 animate(
   plot = Charlie_plot,
   render = gifski_renderer())
+
+x <- data.frame(x=1:3,y=4:6)
+colnames(x)[2] <- c("f")
+
 ```
 
 **In the graph, you can see Charlie's bench press (in black), squat (in blue), and deadlift (in red).**\
