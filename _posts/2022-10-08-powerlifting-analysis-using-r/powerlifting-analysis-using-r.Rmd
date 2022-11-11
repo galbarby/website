@@ -549,7 +549,6 @@ p5
 **So I used the distinct function on "repeated_dat" by name and age class, and by that the new data frame includes some competitions of the competitors that competed more than once, but takes only one competition of every weight class.**
 
 </details>
-\
 **The first analysis shows the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category):**\
 
 ```{r}
