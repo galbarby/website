@@ -132,7 +132,7 @@ M_sq_bp_ratio <- dat %>%
 F_sq_bp_ratio <- dat %>%
   filter(Sex=="F") %>%
   pull(squat_bench_ratio)
-sq_bp_test <- t.test(M_sq_bp_ratio,F_sq_bp_ratio)
+sq_bp_test <- t.test(M_sq_bp_ratio,F_sq_bp_ratio,alternative ="greater")
 pander(sq_bp_test,split.cells = 2)
 
 p1 <- ggplot(dat) +
@@ -178,7 +178,7 @@ $$
 Elchonon believes that the ratio between bench press and deadlift is higher with heavy-weight competitors in comparison to light-weight competitors.\
 So, in the following analysis, I studied the hypothesis with multiple comparisons between varying weight classes.\
 Because we know that the ratio between different lifts can be influenced by gender, I performed the analysis only on males.\
-In addition, I analyzed which class has the most competitors, and then I picked the five that had the most significant difference between their weight.\
+In addition, I analyzed which classes has the most competitors, and then I picked the five that had the most significant difference between their weight.\
 
 
 ```{r warning=FALSE}
@@ -241,7 +241,7 @@ p4 <- p4 +
 
 dl_bp_ratio <- multiple_comparisons_df$deadlift_bench_ratio
 wc_kg <- multiple_comparisons_df$WeightClassKg
-dl_bp_test <- pairwise.t.test(dl_bp_ratio,wc_kg,p.adjust.method="bonferroni")
+dl_bp_test <- pairwise.t.test(dl_bp_ratio,wc_kg,alternative="greater",p.adjust.method="bonferroni")
 dl_bp_test_df <- dl_bp_test$p.value
 dl_bp_test_df[which(dl_bp_test_df<2e-16)] <- "<2e-16"
 ```
@@ -334,7 +334,7 @@ weights_vec <- pairs_dat %>%
   pull(deadlift_bench_ratio)
 heavier_weight <- weights_vec[seq(2,length(weights_vec),by=2)]
 lower_weight <- weights_vec[seq(1,length(weights_vec),by=2)]
-pair_test <- t.test(x = heavier_weight,y=lower_weight,paired = T)
+pair_test <- t.test(x = heavier_weight,y=lower_weight,alternative = "greater",paired = T)
 pander(pair_test,split.cells = 2)
 ```
 
@@ -458,7 +458,7 @@ The right column shows the real values that I received (the observed values).\
 **As you can see the '00' and '11' groups received a bigger part on the observed column, while the '01' and '10' got a smaller part on the observed column.**\
 **So, the squat and the bench press get the same value 52% of the time ("good lift"+"no lift").**\
 **While on the expected option (the option that there is no correlation between them) they get the same value only 47% of the time.**\
-In addition to the intuitive explanation, you can see the 'chisq test' before the pie chart, which detects if there is a statistically significant difference between the expected and observed values.\
+In addition to the intuitive explanation, you can see the 'chisq test' before the slope graph, which detects if there is a statistically significant difference between the expected and observed values.\
 On the 'chisq test', I got a statistically significant result.\
 
 
@@ -537,6 +537,19 @@ strongest_old <- records_dat %>% filter(Age>=80) %>% slice_max(TotalKg) %>%
 p5
 ```
 
+<details>
+
+<summary>
+
+*Age Distribution data frame*
+
+</summary>
+
+**The "repeated_dat" and "dat" could not reflect the age distribution.** **The "repeated_dat" includes some competitions of the same individual competitor and that can bias the result, and "dat" takes the first competition of every competitor, so for competitors that competed in some age classes it takes the youngest one and that can bias the result too.**\
+**So I used the distinct function on "repeated_dat" by name and age class, and by that the new data frame includes some competitions of the competitors that competed more than once, but takes only one competition of every weight class.**
+
+</details>
+\
 **The first analysis shows the oldest record in IPF (the heaviest total that no one has passed throughout the years in a specific category):**\
 
 ```{r}
