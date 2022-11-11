@@ -722,9 +722,6 @@ animate(
   plot = Charlie_plot,
   render = gifski_renderer())
 
-x <- data.frame(x=1:3,y=4:6)
-colnames(x)[2] <- c("f")
-
 ```
 
 **In the graph, you can see Charlie's bench press (in black), squat (in blue), and deadlift (in red).**\
