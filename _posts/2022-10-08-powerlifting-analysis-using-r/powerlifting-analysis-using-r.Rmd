@@ -15,19 +15,19 @@ output:
     toc_float: true
 ---
 
-In this project, I will analyze powerlifting competitions from the famous federation called the IPF.\
-The first group is a series of statistical analyses that show some interesting things that may help several competitors.\
+In this project, I will analyze powerlifting competitions from the famous federation called the IPF.
+The first group is a series of statistical analyses that show some interesting things that may help several competitors.
 The second group is analyses that show rare things in IPF and powerlifting in general.\
-Powerlifting is a strength sport in which the goal of each competitor in the basic competition is to lift the heaviest amount of weight among three lifts.\
-In every lift, the competitor receives three attempts, where his/her next attempt must be equal or heavier to that of the last one, “good lift” is considered a success, and “no lift” is considered a failure.\
+\
+Powerlifting is a strength sport in which the goal of each competitor in the basic competition is to lift the heaviest amount of weight among three lifts.
+In every lift, the competitor receives three attempts, where his/her next attempt must be equal or heavier to that of the last one, “good lift” is considered a success, and “no lift” is considered a failure.
 Every lift has three referees that raise a white flag or red flag.
-For “good lift” the competitor must receive at least two white flags. \
-In each lift there can be some reasons for red flags, the obvious one is if the competitor did not complete the lift.\
-The lifter’s best valid attempt (heaviest “good lift”) on each lift counts toward the competition “total”.\
+For “good lift” the competitor must receive at least two white flags.\
+\
+In each lift there can be some reasons for red flags, the obvious one is if the competitor did not complete the lift.
+The lifter’s best valid attempt (heaviest “good lift”) on each lift counts toward the competition “total”.
 After three attempts, the competitors continue to the next lift in the following order: squat, bench press, and deadlift. The winner in each category (the category is sectioned by gender, age, and weight) is the one with the heaviest “total”.
 \
-
-
 To start, let's load the following libraries:
 
 ```{r message=FALSE, warning=FALSE}
@@ -48,21 +48,23 @@ library(tidyverse)
 
 
 I took the database from https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html \
-The IPF has some competitions per period so apparently, there are some small changes in parts of the analysis.\
-Every row in the database refers to one competitor, in the original database, there are more than a million rows.\
-In addition, the original data includes non-basic competitions, so at first, I did a data cleaning in separate code and saved the relevant data frame as a different file. \
-The next code chunk is customized with eval=FALSE.\
-This means that this code chunk doesn't run because it has been used before.\
-The clean data frame that I created includes only the following competitors:\
-competed in Raw and SBD events.\
-their gender and weight class were identified.\
+The IPF has some competitions per period so apparently, there are some small changes in parts of the analysis.
+Every row in the database refers to one competitor, in the original database, there are more than a million rows.
+In addition, the original data includes non-basic competitions, so at first, I did a data cleaning in separate code and saved the relevant data frame as a different file.\
+\
+The next code chunk is customized with eval=FALSE.
+This means that this code chunk doesn't run because it has been used before.
+The clean data frame that I created includes only the following competitors:
+competed in Raw and SBD events.
+their gender and weight class were identified.
 all the attempts were identified with at least one "good lift" in every exercise.\
-I cleaned the data more than required just in case (even with the clean data, there is enough information).\
-The last thing I did was to save only important information about every competitor (row).\
-The meet name, for example, is irrelevant to this project.\
-Next, I split the clean data frame into two different data frames.\
-The first one is the clean data that I created with the next code.\
-The second data frame is data that includes one competition per competitor.\
+\
+I cleaned the data more than required just in case (even with the clean data, there is enough information).
+The last thing I did was to save only important information about every competitor (row).
+The meet name, for example, is irrelevant to this project.
+Next, I split the clean data frame into two different data frames.
+The first one is the clean data that I created with the next code.
+The second data frame is data that includes one competition per competitor.
 This is because some competitors compete more than once and that may bias the results.
 
 ```{r eval=FALSE}
@@ -100,10 +102,13 @@ ipf_data %>% writexl::write_xlsx(path = "the final ipf cleaned data2.xlsx")
 
 ## Bench Press - Squat Ratio Difference Between Male and Female
 The first analysis checks a familiar phenomenon:\
-when males, in general, have stronger bodies than females,\
+when males, in general, have stronger bodies than females,
 The difference is not very significant in terms of the lower body, in comparison to the upper body, where there is a major dissimilarity.\
+\
 The squat is an exercise that ably demonstrates lower body strength and the bench press is an exercise that effectively demonstrates upper body strength.\
+\
 So, in the following analysis, I checked the ratio between the bench press of the males versus females and I compared it to the ratio of the males' and females' squats.\
+\
 I executed the next mathematical transition to make my hypothesis and conclusions more understandable:\
 **(SQ - squat)**\
 **(BP - bench press)**
@@ -175,9 +180,10 @@ $$
 
 ### Difference between various competitors:
 
-Elchonon believes that the ratio between bench press and deadlift is higher with heavy-weight competitors in comparison to light-weight competitors.\
+Elchonon believes that the ratio between bench press and deadlift is higher with heavy-weight competitors in comparison to light-weight competitors.
 So, in the following analysis, I studied the hypothesis with multiple comparisons between varying weight classes.\
-Because we know that the ratio between different lifts can be influenced by gender, I performed the analysis only on males.\
+\
+Because we know that the ratio between different lifts can be influenced by gender, I performed the analysis only on males.
 In addition, I analyzed which classes has the most competitors, and then I picked the five that had the most significant difference between their weight.\
 
 
@@ -296,13 +302,14 @@ The previous analysis was not enough to give suggestions, because each group has
 $$
 BD_{ratio}=weight_{class}+\epsilon
 $$
-Every weight class has its random errors ($\epsilon$) that may correlate with the ratio of bench press - deadlift and weight class too.\
-Height for example is one of them.\
+Every weight class has its random errors ($\epsilon$) that may correlate with the ratio of bench press - deadlift and weight class too, Height for example is one of them.
 These correlations can affect the consistency of our estimator.\
-The solution that I came up with is to use the "repeated data" (the data frame which includes competitors who compete more than once).\
-With this data frame, I can include competitors that compete in more than one body-weight class and by that solve the consistency problem.\
-These competitors have several fixed characteristics that we can lose when we execute a paired 't test'.\
-In this method, we remove a part of the random errors that affected our estimation.
+\
+The solution that I came up with is to use the "repeated data" (the data frame which includes competitors who compete more than once).
+With this data frame, I can include competitors that compete in more than one body-weight class and by that solve the consistency problem.
+These competitors have several fixed characteristics that we can lose when we execute a paired 't test'.
+In this method, we remove a part of the random errors that affected our estimation.\
+\
 **So the following analysis tests the difference between the bench press-deadlift ratio in two different body weight classes of the same competitor, and that can be done thanks to the "repeated data".**\
 
 ```{r message=FALSE}
@@ -386,7 +393,7 @@ G_dl <- dat %>%
 pop <- nrow(dat)
 percent <- round(c(G_sq/pop,G_bp/pop,G_dl/pop),2)
 percent <- percent*100
-percent <- as.character(percent)
+percent <- paste(as.character(percent),"%",sep = "")
 percent <- paste(c("squat:","bench press:","dead lift:"),percent)
 writeLines(c("good lift percentage:",percent))
 good_lifts_pt <- pairwise.prop.test(x = c(G_sq,G_bp,G_dl), n = rep(pop,3), p.adjust.method = "bonferroni")
@@ -403,8 +410,10 @@ kbl(good_lifts_pt_df) %>%
 
 **The first analysis found that on average, the percentage of the "good lift" on the third attempt is:**\
 **squat - 67%, bench press - 46%, deadlift - 65%.**\
-With the Bonferroni method, I found that the difference between every lift is statistically highly significant.\
+\
+With the Bonferroni method, I found that the difference between every lift is statistically highly significant.
 The meaning of this result is that even the 2% difference between squat and deadlift is a very rare result if the amount of "good lift" is equal between squat and deadlift.\
+\
 **One interesting thing I found that powerlifters can use from this analysis, is the low proportion of "good lift" in the bench press.**\
 **On average, there is more "no lift" than "good lift" in the third attempt, so powerlifters should take into account this result and plan the bench press attempts accordingly.**\
 \
@@ -451,13 +460,15 @@ newggslopegraph(df, type, value, group,
 ```
 
 **I will explain the second analysis via the slope graph:**\
-**On the sides you can see the group splitting, the left number refers to bench press and the right number refers to squat.**\
-**For example, '01' (the color green) means "no lift" for bench press, and "good lift" for squat.**\
+On the sides you can see the group splitting, the left number refers to bench press and the right number refers to squat.
+For example, '01' (the color green) means "no lift" for bench press, and "good lift" for squat.
 The left column shows the expected values of each option (the result that was expected if there is no correlation between the lifts).\
 The right column shows the real values that I received (the observed values).\
+\
 **As you can see the '00' and '11' groups received a bigger part on the observed column, while the '01' and '10' got a smaller part on the observed column.**\
 **So, the squat and the bench press get the same value 52% of the time ("good lift"+"no lift").**\
 **While on the expected option (the option that there is no correlation between them) they get the same value only 47% of the time.**\
+\
 In addition to the intuitive explanation, you can see the 'chisq test' before the slope graph, which detects if there is a statistically significant difference between the expected and observed values.\
 On the 'chisq test', I got a statistically significant result.\
 
@@ -670,9 +681,8 @@ gt(strongest_five)
 ```
 
 **As you can see, the strongest competitors in the IPF are from the USA, Russia, and Poland.**
-**If the strength of the lifter is independent of his/her country, Russia and Poland are surprising results because there are some countries with more competitors than this two.**
-/
-/
+**If the strength of the lifter is independent of his/her country, Russia and Poland are surprising results because there are some countries with more competitors than this two.**\
+\
 **The second analysis shows the countries with the most and the least percentages of female competitors (when taking only into consideration countries with more than 200 competitors).**
 
 
@@ -682,12 +692,13 @@ p7
 
 
 This result is very interesting because the difference is quite big.\
-So I decided to check some factors that can relate to the outcome.\
-I by checking the female percentage in Sweden and Belgium over the years and I was even more surprised.\
+So I decided to check some factors that may cause this outcome.
+checking the female percentage in Sweden and Belgium over the years made me even more surprised.
 [Female percentage in Sweden and Belgium](https://data.worldbank.org/indicator/SP.POP.TOTL.FE.ZS?locations=SE-BE)
 In this link you can see that Belgium's female percentage was higher than Sweden's female percentage from 1960 to 2021.\
 However, Sweden has a higher score on 'Gender Equality Index' in every year that exists in the following link:\
-[Gender Equality Index](https://eige.europa.eu/gender-equality-index/2021/compare-countries/index/bar)
+[Gender Equality Index](https://eige.europa.eu/gender-equality-index/2021/compare-countries/index/bar)\
+\
 Those who are interested in this difference can request from me more analyses on the females' percentage in IPF.\
 These two factors I mentioned do not suffice. Another analysis can detect countries with a lower female percentage and a lower score on the 'Gender Equality Index' in comparison to Belgium. Nevertheless, Belgium is the country with the lowest female percentage in IPF.\
 Therefore, additional factors influence the observed result.\
