@@ -7,7 +7,7 @@ links:
   - label: GitHub
     url: "https://github.com/galbarby"
   - label: Email
-    url: "galbarby10@gmail.com.com"
+    url: "galbarby10@gmail.com"
 output:
   postcards::jolla
 site: distill::distill_website
