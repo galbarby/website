@@ -6,8 +6,6 @@ links:
     url: "https://www.linkedin.com/in/gal-barby-0b4057225/"
   - label: GitHub
     url: "https://github.com/galbarby"
-  - label: Email
-    url: "galbarby10@gmail.com"
 output:
   postcards::jolla
 site: distill::distill_website
