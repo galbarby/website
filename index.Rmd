@@ -3,13 +3,11 @@ title: "Gal Barby"
 image: "IMG_4678.jpg"
 links:
   - label: LinkedIn
-    url: "https://linkedin.com/"
-  - label: Twitter
-    url: "https://twitter.com/"
+    url: "https://www.linkedin.com/in/gal-barby-0b4057225/"
   - label: GitHub
-    url: "https://github.com/"
+    url: "https://github.com/galbarby"
   - label: Email
-    url: "mailto:email@email.com"
+    url: "galbarby10@gmail.com.com"
 output:
   postcards::jolla
 site: distill::distill_website
